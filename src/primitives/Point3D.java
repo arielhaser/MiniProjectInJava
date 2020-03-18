@@ -1,0 +1,91 @@
+package primitives;
+
+import java.util.Objects;
+
+public class Point3D {
+    Coordinate _x;
+    Coordinate _y;
+    Coordinate _z;
+    final static Point3D ZERO = new Point3D(0.0,0.0,0.0);
+
+    public Point3D(Coordinate _x, Coordinate _y, Coordinate _z) {
+        super();
+        this._x = _x;
+        this._y = _y;
+        this._z = _z;
+    }
+
+    public Point3D(double _x, double _y, double _z){
+        this._x = new Coordinate(_x);
+        this._y = new Coordinate(_y);
+        this._z = new Coordinate(_z);
+    }
+
+    public Point3D(Point3D other){
+        this._x = other._x;
+        this._y = other._y;
+        this._z = other._z;
+    }
+
+    public Coordinate get_x() {
+        return _x;
+    }
+
+    public void set_x(Coordinate _x) {
+        this._x = _x;
+    }
+
+    public Coordinate get_y() {
+        return _y;
+    }
+
+    public void set_y(Coordinate _y) {
+        this._y = _y;
+    }
+
+    public Coordinate get_z() {
+        return _z;
+    }
+
+    public void set_z(Coordinate _z) {
+        this._z = _z;
+    }
+
+    public Vector subtract(Point3D other){
+        double x = _x.get()-other.get_x().get();
+        double y = _y.get()-other.get_y().get();
+        double z = _z.get()-other.get_z().get();
+        Point3D temp = new Point3D(x, y, z);
+        return new Vector(temp);
+    }
+
+    public double distanceSquared(Point3D other){
+        double x = _x.get() - other.get_x().get();
+        double y =_y.get() - other.get_y().get();
+        double z = _z.get() - other.get_z().get();
+        return x*x+y*y+z*z;
+    }
+
+    public double distance(Point3D other){
+        return Math.sqrt(distanceSquared(other));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point3D point3D = (Point3D) o;
+        return Objects.equals(_x, point3D._x) &&
+                Objects.equals(_y, point3D._y) &&
+                Objects.equals(_z, point3D._z);
+    }
+
+    @Override
+    public String toString() {
+        return "Point3D{" +
+                "_x=" + _x +
+                ", _y=" + _y +
+                ", _z=" + _z +
+                '}';
+    }
+}

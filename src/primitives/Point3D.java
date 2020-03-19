@@ -59,10 +59,18 @@ public class Point3D {
         return new Vector(temp);
     }
 
+    public Point3D add(Vector other){
+        double x = _x.get()+other.get_head().get_x().get();
+        double y = _y.get()+other.get_head().get_y().get();
+        double z = _z.get()+other.get_head().get_z().get();
+        return new Point3D(x, y, z);
+    }
+
     public double distanceSquared(Point3D other){
-        double x = _x.get() - other.get_x().get();
-        double y =_y.get() - other.get_y().get();
-        double z = _z.get() - other.get_z().get();
+        Vector temp = subtract(other);
+        double x= temp.get_head().get_x().get();
+        double y= temp.get_head().get_y().get();
+        double z= temp.get_head().get_z().get();
         return x*x+y*y+z*z;
     }
 
@@ -75,9 +83,9 @@ public class Point3D {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Point3D point3D = (Point3D) o;
-        return Objects.equals(_x, point3D._x) &&
-                Objects.equals(_y, point3D._y) &&
-                Objects.equals(_z, point3D._z);
+        return _x.equals(point3D._x) &&
+                _y.equals(point3D._y) &&
+                _z.equals(point3D._z);
     }
 
     @Override

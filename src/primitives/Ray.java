@@ -2,7 +2,7 @@ package primitives;
 
 import java.util.Objects;
 
-public class Ray {
+public class Ray  {
     Point3D _p00;
     Vector _direction;
 

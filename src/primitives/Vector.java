@@ -66,10 +66,10 @@ public class Vector {
     public Vector crossProduct(Vector other){
         double x = _head.get_x().get();
         double x_other = other._head.get_x().get();
-        double y = _head.get_x().get();
-        double y_other = other._head.get_x().get();
-        double z = _head.get_x().get();
-        double z_other = other._head.get_x().get();
+        double y = _head.get_y().get();
+        double y_other = other._head.get_y().get();
+        double z = _head.get_z().get();
+        double z_other = other._head.get_z().get();
         return new Vector(y*z_other-z*y_other, z*x_other-x*z_other, x*y_other-y*x_other);
     }
 

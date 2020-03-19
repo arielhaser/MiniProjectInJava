@@ -1,9 +1,12 @@
 package geometries;
 
+import primitives.Ray;
+
 public class Cylinder extends Tube {
     protected double _height;
 
-    public Cylinder(double _height) {
+    public Cylinder(double _radius, Ray _axisRay, double _height) {
+        super(_radius, _axisRay);
         this._height = _height;
     }
 

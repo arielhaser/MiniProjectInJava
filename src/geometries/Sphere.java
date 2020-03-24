@@ -3,9 +3,17 @@ package geometries;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * define Sphere as a shape of RadialGeometry
+ */
 public class Sphere extends RadialGeometry implements Geometry {
     protected Point3D _center;
 
+    /**
+     * constructor of Sphere
+     * @param _radius = radius of Sphere
+     * @param _center = the point of the center of the Sphere
+     */
     public Sphere(double _radius, Point3D _center) {
         super(_radius);
         this._center = _center;

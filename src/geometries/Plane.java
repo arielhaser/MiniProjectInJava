@@ -3,15 +3,29 @@ package geometries;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * define Plane as a geometry object
+ */
 public class Plane implements Geometry {
     protected Point3D _p;
     protected Vector _normal;
 
+    /**
+     * constructor of Plane
+     * @param _p = point on the Plane
+     * @param _normal = a normal vector come from the Plane
+     */
     public Plane(Point3D _p, Vector _normal) {
         this._p = _p;
         this._normal = _normal;
     }
 
+    /**
+     * constructor of Plane by three points
+     * @param x = point number one
+     * @param y = point number two
+     * @param z = point number three
+     */
     public Plane(Point3D x, Point3D y, Point3D z){
         _p = x;
         _normal = null;

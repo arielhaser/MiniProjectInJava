@@ -2,9 +2,18 @@ package geometries;
 
 import primitives.Ray;
 
+/**
+ * A kind of shape of Tube shape
+ */
 public class Cylinder extends Tube {
     protected double _height;
 
+    /**
+     * constructor of Cylinder
+     * @param _radius = radius of the Cylinder
+     * @param _axisRay = ray of the axis of the Cylinder
+     * @param _height = the height of the Cylinder
+     */
     public Cylinder(double _radius, Ray _axisRay, double _height) {
         super(_radius, _axisRay);
         this._height = _height;

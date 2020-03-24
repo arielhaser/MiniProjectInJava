@@ -1,13 +1,22 @@
 package primitives;
 
-import java.util.Objects;
+import static primitives.Util.*;
 
+/**
+ * define Ray - an object with direction and size of one
+ */
 public class Ray  {
     Point3D _p00;
     Vector _direction;
 
+    /**
+     * constructor of Ray
+     * @param _p00 = start 3D point of the ray
+     * @param _direction = vector with contain a direction
+     * @throws IllegalArgumentException = when vector isn't with size 1
+     */
     public Ray(Point3D _p00, Vector _direction) throws IllegalArgumentException {
-        if (is_legal(_p00, _direction))
+        if (!isZero(_direction.length()-1))
             throw new IllegalArgumentException("vector not normalize");
         this._p00 = _p00;
         this._direction = _direction;
@@ -27,13 +36,6 @@ public class Ray  {
 
     public void set_direction(Vector _direction) {
         this._direction = _direction;
-    }
-
-    public boolean is_legal(Point3D _p00, Vector _direction){
-        double _x = _direction.get_head().get_x().get() - _p00.get_x().get();
-        double _y = _direction.get_head().get_y().get() - _p00.get_y().get();
-        double _z = _direction.get_head().get_z().get() - _p00.get_z().get();
-        return Math.sqrt(_x*_x+_y*_y+_z*_z) == 1.0;
     }
 
     @Override

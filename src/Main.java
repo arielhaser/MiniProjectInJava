@@ -11,7 +11,7 @@ public final class Main {
 
 	/**
 	 * Main program to tests initial functionality of the 1st stage
-	 * 
+	 *
 	 * @param args irrelevant here
 	 */
 	public static void main(String[] args) {
@@ -31,7 +31,7 @@ public final class Main {
 			out.println("ERROR: lengthSquared() wrong value");
 		if (!isZero(new Vector(0, 3, 4).length() - 5))
 			out.println("ERROR: length() wrong value");
-		
+
 		// test Dot-Product
 		if (!isZero(v1.dotProduct(v3)))
 			out.println("ERROR: dotProduct() for orthogonal vectors is not zero");
@@ -61,7 +61,7 @@ public final class Main {
 		Vector u = v.normalized();
 		if (u == v)
 			out.println("ERROR: normalizated() function does not create a new vector");
-		
+
 		out.println("If there were no any other outputs - all tests succeeded!");
 	}
 }

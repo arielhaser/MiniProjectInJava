@@ -32,8 +32,17 @@ public class Tube extends RadialGeometry implements Geometry {
                 '}';
     }
 
+    /**
+     * Pay attention!
+     * the calculation has made by the start point of the ray
+     * that define as the point which the vector get out from her.
+     * @param p = point on the tube WHICH found on the same plane as the start point
+     *          we define in the description above
+     * @return = normalized vector which normal to the tube
+     */
     @Override
     public Vector getNormal(Point3D p) {
-        return null;
+        Vector temp_vector = p.subtract(_axisRay.get_p00());
+        return temp_vector.normalized();
     }
 }

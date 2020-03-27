@@ -1,6 +1,7 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Vector;
 
 /**
  * Define a shape of Triangle, kind of Polygon - flat object
@@ -17,4 +18,5 @@ public class Triangle extends Polygon {
                 ", _plane=" + _plane +
                 '}';
     }
+
 }

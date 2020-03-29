@@ -12,7 +12,7 @@ public class PlaneTest {
     @Test
     public void getNormal() {
         Vector normal_vector = pl1.getNormal(null);
-        assertEquals("normal isn't right", normal_vector, new Vector(-3,-6,-3));
+        assertEquals("normal isn't right", normal_vector, new Vector(-3,6,-3).normalize());
     }
 
 

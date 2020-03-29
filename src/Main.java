@@ -47,6 +47,7 @@ public final class Main {
 		} catch (Exception e) {
 		}
 		Vector vr = v1.crossProduct(v3);
+		out.println(vr);
 		if (!isZero(vr.length() - v1.length() * v3.length()))
 			out.println("ERROR: crossProduct() wrong result length");
 		if (!isZero(vr.dotProduct(v1)) || !isZero(vr.dotProduct(v3)))

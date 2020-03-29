@@ -43,6 +43,7 @@ public class Tube extends RadialGeometry implements Geometry {
     @Override
     public Vector getNormal(Point3D p) {
         Vector temp_vector = p.subtract(_axisRay.get_p00());
-        return temp_vector.normalized();
+        temp_vector.normalize();
+        return temp_vector;
     }
 }

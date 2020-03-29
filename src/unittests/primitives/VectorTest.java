@@ -38,8 +38,8 @@ public class VectorTest {
     @Test
     public void subtract() {
         // ============ Equivalence Partitions Tests ==============
-        Vector temp_vector = v1.add(v3);
-        assertEquals("subtract() has wrong result",temp_vector ,new Vector(1,-1,1));
+        Vector temp_vector = v1.subtract(v3);
+        assertEquals("subtract() has wrong result"+temp_vector,temp_vector ,new Vector(1,-1,1));
         // =============== Boundary Values Tests ==================
         // test zero vector
         try {
@@ -66,23 +66,17 @@ public class VectorTest {
         // ============ Equivalence Partitions Tests ==============
         double temp_result = v1.dotProduct(v2);
         assertTrue("dotProduct() has wrong result",isZero(temp_result +14.0));
-        // =============== Boundary Values Tests ==================
-        // test zero vector
-        try {
-            v1.dotProduct(v4);
-            fail("dotProduct() for parallel vectors does not throw an exception");
-        } catch (Exception ignored) {}
     }
 
     @Test
     public void crossProduct() {
         // ============ Equivalence Partitions Tests ==============
-        Vector temp_vector = v1.crossProduct(v3);
-        assertEquals("crossProduct() has wrong result",temp_vector ,new Vector(-5,-2,3));
+        Vector temp_vector = v1.crossProduct(v4);
+        assertEquals("crossProduct() has wrong result",temp_vector ,new Vector(-13,2,3));
         assertTrue("ERROR: crossProduct() wrong result length",
-                isZero(temp_vector.length() - v1.length() * v3.length()));
+                isZero(temp_vector.length() - v1.length() * v4.length()));
         assertTrue("ERROR: crossProduct() result is not orthogonal to its operands",
-                isZero(temp_vector.dotProduct(v1)) && isZero(temp_vector.dotProduct(v3)));
+                isZero(temp_vector.dotProduct(v1)) && isZero(temp_vector.dotProduct(v4)));
         // =============== Boundary Values Tests ==================
         // test zero vector
         try {
@@ -107,15 +101,17 @@ public class VectorTest {
     public void normalize() {
         // ============ Equivalence Partitions Tests ==============
         Vector vCopy = new Vector(v1);
-        Vector vCopyNormalize = vCopy.normalize();
-        assertFalse("ERROR: normalize() function creates a new vector", vCopy == vCopyNormalize);
-        assertTrue ("ERROR: normalize() result is not a unit vector",isZero(vCopyNormalize.length() - 1));
+        Vector u = vCopy.normalize();
+        assertTrue("ERROR: normalizate() function creates a new vector", u == vCopy);
     }
 
     @Test
     public void normalized() {
+        // ============ Equivalence Partitions Tests ==============
         Vector vCopy = new Vector(v1);
-        Vector u = vCopy.normalized();
-        assertTrue("ERROR: normalizated() function does not create a new vector", u == vCopy);
+        Vector vCopyNormalize = vCopy.normalized();
+        assertFalse("ERROR: normalized() function does not create a new vector", vCopy == vCopyNormalize);
+        assertTrue ("ERROR: normalized() result is not a unit vector",isZero(vCopyNormalize.length() - 1));
     }
+
 }

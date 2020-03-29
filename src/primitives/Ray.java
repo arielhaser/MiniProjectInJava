@@ -26,16 +26,8 @@ public class Ray  {
         return _p00;
     }
 
-    public void set_p00(Point3D _p00) {
-        this._p00 = _p00;
-    }
-
     public Vector get_direction() {
         return _direction;
-    }
-
-    public void set_direction(Vector _direction) {
-        this._direction = _direction;
     }
 
     @Override

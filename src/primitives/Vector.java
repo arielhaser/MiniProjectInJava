@@ -55,10 +55,6 @@ public class Vector {
         return _head;
     }
 
-    public void set_head(Point3D _head) {
-        this._head = _head;
-    }
-
     /**
      * concrete vector to another vector
      * @param other = vector object

@@ -2,7 +2,6 @@ package primitives;
 
 import org.junit.Test;
 
-import static java.lang.System.out;
 import static org.junit.Assert.*;
 import static primitives.Util.isZero;
 
@@ -66,6 +65,7 @@ public class VectorTest {
         // ============ Equivalence Partitions Tests ==============
         double temp_result = v1.dotProduct(v2);
         assertTrue("dotProduct() has wrong result",isZero(temp_result +14.0));
+
     }
 
     @Test

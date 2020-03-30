@@ -33,9 +33,7 @@ public class Tube extends RadialGeometry implements Geometry {
     }
 
     /**
-     * Pay attention!
-     * the calculation has made by the start point of the ray
-     * that define as the point which the vector get out from her.
+     * Calculate the normal of cylinder
      * @param p = point on the tube WHICH found on the same plane as the start point
      *          we define in the description above
      * @return = normalized vector which normal to the tube
@@ -43,7 +41,10 @@ public class Tube extends RadialGeometry implements Geometry {
     @Override
     public Vector getNormal(Point3D p) {
         Vector temp_vector = p.subtract(_axisRay.get_p00());
-        temp_vector.normalize();
-        return temp_vector;
+        double t = _axisRay.get_direction().dotProduct(temp_vector);
+        Point3D center = _axisRay.get_p00().add(_axisRay.get_direction().scale(t));
+        Vector orthogonal = p.subtract(center);
+        orthogonal.normalize();
+        return orthogonal;
     }
 }

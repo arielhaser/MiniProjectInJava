@@ -13,6 +13,6 @@ public class TubeTest {
     @Test
     public void getNormal() {
         Vector normal_vector = tu.getNormal(new Point3D(1,2,6));
-        assertEquals("normal isn't right", normal_vector, new Vector(0,0,1));
+        assertEquals("normal isn't right", normal_vector, new Vector(-0.42714364638469876,-0.5339295579808734,0.7297037292405272));
     }
 }

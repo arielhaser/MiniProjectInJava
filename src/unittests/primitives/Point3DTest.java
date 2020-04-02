@@ -5,11 +5,18 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static primitives.Util.isZero;
 
+/**
+ * class allowing to test the different operations on the points3D
+ */
 public class Point3DTest {
     Point3D p1 = new Point3D(1, 2, 3);
     Point3D p2 = new Point3D(0, 3, -2);
     Point3D p3 = new Point3D(-1, -2, -3);
 
+    /**
+     * we test the subtraction of two points3D
+     * @throws IllegalArgumentException = ignored: if two same points
+     */
     @Test
     public void subtract() {
         // ============ Equivalence Partitions Tests ==============
@@ -20,9 +27,12 @@ public class Point3DTest {
         try {
             p1.subtract(p1);
             fail("subtract() for parallel vectors does not throw an exception");
-        } catch (Exception ignored) {}
+        } catch (IllegalArgumentException ignored) {}
     }
 
+	/**
+     * we test the addition of two points3D
+     */
     @Test
     public void add() {
         // ============ Equivalence Partitions Tests ==============
@@ -31,12 +41,18 @@ public class Point3DTest {
         assertEquals("add() has wrong result",temp_point ,new Point3D(2,1,8));
     }
 
+	/**
+     * we test the calcul of the distanceSquared between two points
+     */
     @Test
     public void distanceSquared() {
         // ============ Equivalence Partitions Tests ==============
         assertTrue("ERROR: lengthSquared() wrong value", isZero(p1.distanceSquared(p2) - 27.0));
     }
 
+	/**
+     * we test the calcul of the distance between two points
+     */
     @Test
     public void distance() {
         // ============ Equivalence Partitions Tests ==============

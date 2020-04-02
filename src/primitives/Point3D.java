@@ -44,28 +44,28 @@ public class Point3D {
         this._z = other._z;
     }
 
-    public Coordinate get_x() {
-        return _x;
-    }
-
     public void set_x(Coordinate _x) {
         this._x = _x;
-    }
-
-    public Coordinate get_y() {
-        return _y;
     }
 
     public void set_y(Coordinate _y) {
         this._y = _y;
     }
 
-    public Coordinate get_z() {
-        return _z;
-    }
-
     public void set_z(Coordinate _z) {
         this._z = _z;
+    }
+
+    public Coordinate get_x() {
+        return _x;
+    }
+
+    public Coordinate get_y() {
+        return _y;
+    }
+
+    public Coordinate get_z() {
+        return _z;
     }
 
     /**
@@ -133,4 +133,5 @@ public class Point3D {
                 ", _z=" + _z +
                 '}';
     }
+
 }

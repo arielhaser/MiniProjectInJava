@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * Define a shape of Triangle, kind of Polygon - flat object
@@ -19,4 +22,8 @@ public class Triangle extends Polygon {
                 '}';
     }
 
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
+    }
 }

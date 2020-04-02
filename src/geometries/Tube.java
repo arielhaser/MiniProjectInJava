@@ -4,6 +4,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * Define a shape of Tube - a kind of RadialGeometry
  */
@@ -46,5 +48,10 @@ public class Tube extends RadialGeometry implements Geometry {
         Vector orthogonal = p.subtract(center);
         orthogonal.normalize();
         return orthogonal;
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
     }
 }

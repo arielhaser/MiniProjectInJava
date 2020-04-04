@@ -4,7 +4,10 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static primitives.Util.alignZero;
 
 /**
  * define Sphere as a shape of RadialGeometry
@@ -42,6 +45,37 @@ public class Sphere extends RadialGeometry implements Geometry {
 
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        return null;
+        if(_center.equals(ray.get_p00())){
+            List<Point3D> results = new ArrayList<>();
+            results.add(new Point3D(ray.get_p00().add(ray.get_direction().scale(_radius))));
+            return results;
+        }
+        Vector u = _center.subtract(ray.get_p00());
+        double t1, t2;
+        if(u.isSameVector(ray.get_direction())){
+            t1 = alignZero(u.length()-_radius);
+            t2 = alignZero(u.length()+_radius);
+        }
+        else{
+            double tm = ray.get_direction().dotProduct(u);
+            double d = Math.sqrt(u.lengthSquared() - tm * tm);
+            if (d > _radius) {
+                return null;
+            }
+            double th = Math.sqrt(_radius * _radius - d * d);
+            t1 = alignZero(tm - th);
+            t2 = alignZero(tm + th);
+        }
+        if((t1<=0 && t2<=0)||(t1==t2)){
+            return null;
+        }
+        List<Point3D> results = new ArrayList<>();
+        if(t1>0){
+            results.add(new Point3D(ray.get_p00().add(ray.get_direction().scale(t1))));
+        }
+        if(t2>0){
+            results.add(new Point3D(ray.get_p00().add(ray.get_direction().scale(t2))));
+        }
+        return results;
     }
 }

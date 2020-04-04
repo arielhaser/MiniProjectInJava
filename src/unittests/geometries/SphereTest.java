@@ -48,7 +48,7 @@ public class SphereTest {
         assertEquals("Ray crosses sphere", List.of(p1, p2), result);
 
         // TC03: Ray starts inside the sphere (1 point)
-        Point3D p3 = new Point3D(1.993957206, 0.109768268, 0);
+        Point3D p3 = new Point3D(1.9939572059906485 , 0.10976826799792186, 0);
         result = sphere.findIntersections(new Ray(new Point3D(1.5, 0, 0),
                 new Vector(4.5, 1, 0).normalize()));
         assertEquals("Wrong number of points", 1, result.size());
@@ -63,7 +63,7 @@ public class SphereTest {
 
         // **** Group: Ray's line crosses the sphere (but not the center)
         // TC11: Ray starts at sphere and goes inside (1 points)
-        p3 = new Point3D(1.993957206, 0.109768268, 0);
+        p3 = new Point3D(1.9939572059906485, 0.10976826799792186, 0);
         result = sphere.findIntersections(new Ray(new Point3D(1.5, 0, 0),
                 new Vector(4.5, 1, 0).normalize()));
         assertEquals("Wrong number of points", 1, result.size());
@@ -79,7 +79,7 @@ public class SphereTest {
         p1 = new Point3D(0.105572809, 0, 0.4472135955);
         p2 = new Point3D(1.894427191, 0, -0.4472135955);
         result = sphere.findIntersections(new Ray(new Point3D(-1, 0, 1),
-                new Vector(3, 0, -1).normalize()));
+                new Vector(4, 0, -2).normalize()));
         assertEquals("Wrong number of points", 2, result.size());
         if (result.get(0).get_x().get() > result.get(1).get_x().get())
             result = List.of(result.get(1), result.get(0));
@@ -123,7 +123,7 @@ public class SphereTest {
         assertEquals("Ray's line out of sphere", null, result);
 
         // **** Group: Special cases
-        // TC19: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
+        // TC22: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
         result = sphere.findIntersections(new Ray(new Point3D(1, 0, 2),
                 new Vector(1, 0, 0).normalize()));
         assertEquals("Ray's line out of sphere", null, result);

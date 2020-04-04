@@ -4,9 +4,9 @@ package primitives;
  * define a 3D point in space
  */
 public class Point3D {
-    Coordinate _x;
-    Coordinate _y;
-    Coordinate _z;
+    private Coordinate _x;
+    private Coordinate _y;
+    private Coordinate _z;
     final static Point3D ZERO = new Point3D(0.0,0.0,0.0);
 
     /**

@@ -6,8 +6,8 @@ import static primitives.Util.*;
  * define Ray - an object with direction and size of one
  */
 public class Ray  {
-    Point3D _p00;
-    Vector _direction;
+    private Point3D _p00;
+    private Vector _direction;
 
     /**
      * constructor of Ray
@@ -28,6 +28,10 @@ public class Ray  {
 
     public Vector get_direction() {
         return _direction;
+    }
+
+    public boolean isPointOnRay(Point3D other){
+        return _p00.equals(other) || _direction.isSameVector(other.subtract(_p00));
     }
 
     @Override

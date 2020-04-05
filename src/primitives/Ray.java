@@ -34,6 +34,10 @@ public class Ray  {
         return _p00.equals(other) || _direction.isSameVector(other.subtract(_p00));
     }
 
+    public Point3D getPoint(double t){
+        return _p00.add(_direction.scale(t));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

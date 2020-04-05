@@ -47,7 +47,7 @@ public class Sphere extends RadialGeometry implements Geometry {
     public List<Point3D> findIntersections(Ray ray) {
         if(_center.equals(ray.get_p00())){
             List<Point3D> results = new ArrayList<>();
-            results.add(new Point3D(ray.get_p00().add(ray.get_direction().scale(_radius))));
+            results.add(new Point3D(ray.getPoint(_radius)));
             return results;
         }
         Vector u = _center.subtract(ray.get_p00());
@@ -71,10 +71,10 @@ public class Sphere extends RadialGeometry implements Geometry {
         }
         List<Point3D> results = new ArrayList<>();
         if(t1>0){
-            results.add(new Point3D(ray.get_p00().add(ray.get_direction().scale(t1))));
+            results.add(new Point3D(ray.getPoint(t1)));
         }
         if(t2>0){
-            results.add(new Point3D(ray.get_p00().add(ray.get_direction().scale(t2))));
+            results.add(new Point3D(ray.getPoint(t2)));
         }
         return results;
     }

@@ -69,7 +69,7 @@ public class Plane implements Geometry {
             return null;
         double t = alignZero(numerator/denominator);
         List<Point3D> result = new ArrayList<>();
-        result.add(new Point3D(ray.get_p00().add(ray.get_direction().scale(t))));
+        result.add(new Point3D(ray.getPoint(t)));
         return result;
     }
 }

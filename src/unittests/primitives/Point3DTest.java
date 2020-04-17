@@ -18,7 +18,7 @@ public class Point3DTest {
      * @throws IllegalArgumentException = ignored: if two same points
      */
     @Test
-    public void subtract() {
+    public void subtractTest() {
         // ============ Equivalence Partitions Tests ==============
         Vector temp_vector = p1.subtract(p2);
         assertEquals("subtract() has wrong result",temp_vector ,new Vector(1,-1,5));
@@ -26,7 +26,7 @@ public class Point3DTest {
         // test zero vector
         try {
             p1.subtract(p1);
-            fail("subtract() for parallel vectors does not throw an exception");
+            fail("subtract() for sames vectors does not throw an exception");
         } catch (IllegalArgumentException ignored) {}
     }
 
@@ -34,7 +34,7 @@ public class Point3DTest {
      * we test the addition of two points3D
      */
     @Test
-    public void add() {
+    public void addTest() {
         // ============ Equivalence Partitions Tests ==============
         Vector temp_vector = p1.subtract(p2);
         Point3D temp_point = p1.add(temp_vector);
@@ -45,7 +45,7 @@ public class Point3DTest {
      * we test the calcul of the distanceSquared between two points
      */
     @Test
-    public void distanceSquared() {
+    public void distanceSquaredTest() {
         // ============ Equivalence Partitions Tests ==============
         assertTrue("ERROR: lengthSquared() wrong value", isZero(p1.distanceSquared(p2) - 27.0));
     }
@@ -54,7 +54,7 @@ public class Point3DTest {
      * we test the calcul of the distance between two points
      */
     @Test
-    public void distance() {
+    public void distanceTest() {
         // ============ Equivalence Partitions Tests ==============
         assertTrue("ERROR: lengthSquared() wrong value", isZero(p2.distance(p3) - Math.sqrt(27)));
     }

@@ -19,7 +19,7 @@ public class SphereTest {
      * we test the obtaining of the normal to the sphere
      */
     @Test
-    public void getNormal() {
+    public void getNormalTest() {
         Vector normal_vector = sp.getNormal(new Point3D(1,2,6));
         assertEquals("normal isn't right", normal_vector, new Vector(0,0,1));
     }
@@ -28,7 +28,7 @@ public class SphereTest {
      * Test method for {@link geometries.Sphere#findIntersections(primitives.Ray)}.
      */
     @Test
-    public void testFindIntersections() {
+    public void findIntersectionsTest() {
         Sphere sphere = new Sphere(1d, new Point3D(1, 0, 0));
 
         // ============ Equivalence Partitions Tests ==============
@@ -86,9 +86,9 @@ public class SphereTest {
         assertEquals("Ray crosses sphere", List.of(p1, p2), result);
 
         // TC14: Ray starts at sphere and goes inside (1 points)
-        p3 = new Point3D(1, -1, 0);
+        p3 = new Point3D(0.4, -0.8, 0);
         result = sphere.findIntersections(new Ray(new Point3D(1, 1, 0),
-                new Vector(0, -2, 0).normalize()));
+                new Vector(-1, -3, 0).normalize()));
         assertEquals("Wrong number of points", 1, result.size());
         assertEquals("Ray crosses sphere", List.of(p3), result);
 

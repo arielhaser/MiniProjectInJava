@@ -10,13 +10,23 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * the class that alllows us to perform tests on composite geometries
+ */
 public class GeometriesTest {
 
+    /**
+     * Test method for {@link geometries.Geometries#findIntersections(primitives.Ray)}
+     */
     @Test
-    public void findIntersections() {
-        Triangle tr = new Triangle(new Point3D(2,3,2),new Point3D(3,1,2),new Point3D(4,-4,4));
+    public void findIntersectionsTest() {
+        Triangle tr = new Triangle(new Point3D(2,3,2),
+                new Point3D(3,1,2),
+                new Point3D(4,-4,4));
         Sphere sp = new Sphere(Math.sqrt(2), new Point3D(2,-1.5,2));
-        Plane pl = new Plane(new Point3D(-1,0.5,4),new Point3D(2.1,3.5,7),new Point3D(6.1,6.5,9));
+        Plane pl = new Plane(new Point3D(-1,0.5,4),
+                new Point3D(2.1,3.5,7),
+                new Point3D(6.1,6.5,9));
         ArrayList<Intersectable> temp_list = new ArrayList<>();
         temp_list.add(tr);
         temp_list.add(sp);

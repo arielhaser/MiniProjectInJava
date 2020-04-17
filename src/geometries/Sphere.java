@@ -37,38 +37,53 @@ public class Sphere extends RadialGeometry implements Geometry {
                 '}';
     }
 
+    /**
+     * the function allows to get the normal of the sphere
+     * @param p: the point
+     * @return the normal vector of the sphere
+     */
     @Override
     public Vector getNormal(Point3D p) {
         Vector temp_vector = p.subtract(_center);
         return temp_vector.normalized();
     }
 
+    /**
+     *  this function allows to find the intersections between the ray and the sphere
+     * @param ray: the ray
+     * @return a list : result => if null: there isn't intersection and if not null,
+     *         it includes all intersections
+     */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        if(_center.equals(ray.get_p00())){
+        Point3D p0 = ray.get_p00();
+        Vector v = ray.get_direction();
+
+        if(_center.equals(p0)){
             List<Point3D> results = new ArrayList<>();
             results.add(new Point3D(ray.getPoint(_radius)));
             return results;
         }
-        Vector u = _center.subtract(ray.get_p00());
+        Vector u = _center.subtract(p0);
         double t1, t2;
-        if(u.isSameVector(ray.get_direction())){
+        if(u.isSameVector(v)){ // it's the continuation of the radius
             t1 = alignZero(u.length()-_radius);
             t2 = alignZero(u.length()+_radius);
         }
         else{
-            double tm = ray.get_direction().dotProduct(u);
+            double tm = v.dotProduct(u);
             double d = Math.sqrt(u.lengthSquared() - tm * tm);
-            if (d > _radius) {
+            if (d > _radius) // there isn't intersection
                 return null;
-            }
+
             double th = Math.sqrt(_radius * _radius - d * d);
+            if (th == 0 ) return null;
             t1 = alignZero(tm - th);
             t2 = alignZero(tm + th);
         }
-        if((t1<=0 && t2<=0)||(t1==t2)){
+        if((t1<=0 && t2<=0)||(t1==t2))// there isn't intersection
             return null;
-        }
+
         List<Point3D> results = new ArrayList<>();
         if(t1>0){
             results.add(new Point3D(ray.getPoint(t1)));

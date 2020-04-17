@@ -23,8 +23,11 @@ public class TriangleTest {
         new Triangle(new Point3D(1,2,4),new Point3D(4,5,7),new Point3D(8,8,9));
     }
 
+    /**
+     * Test method for {@link geometries.Triangle#findIntersections(primitives.Ray)}
+     */
     @Test
-    public void findIntsersections() {
+    public void findIntersectionsTest() {
         Triangle tr = new Triangle(new Point3D(1,2,4),new Point3D(4,5,7),new Point3D(8,8,9));
         // ============ Equivalence Partitions Tests ==============
         //TC01: Ray intersects inside the triangle
@@ -35,8 +38,8 @@ public class TriangleTest {
         assertEquals("Ray crosses triangle", List.of(p1), result);
 
         //TC02: Ray intersects outside the triangle
-        result = tr.findIntersections(new Ray(new Point3D(0, 4, 0),
-                new Vector(0.4368217588, -1.6132638767, 5.3366504877).normalize()));
+        result = tr.findIntersections(new Ray(new Point3D(-4.27, 2.26, 0),
+                new Vector(4.27, -2.26, 2.74).normalize()));
         assertEquals("Ray's line out of triangle", null, result);
 
         // =============== Boundary Values Tests ==================

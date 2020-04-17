@@ -33,7 +33,7 @@ public class VectorTest {
      * @throws IllegalArgumentException = ignored: if addition of two opposite vectors
      */
     @Test
-    public void add() {
+    public void addTest() {
         // ============ Equivalence Partitions Tests ==============
         Vector temp_vector = v1.add(v3);
         assertEquals("add() has wrong result",temp_vector ,new Vector(1,5,5));
@@ -50,14 +50,14 @@ public class VectorTest {
      * @throws IllegalArgumentException = ignored: if we subtract two same vectors
      */
     @Test
-    public void subtract() {
+    public void subtractTest() {
         // ============ Equivalence Partitions Tests ==============
         Vector temp_vector = v1.subtract(v3);
         assertEquals("subtract() has wrong result"+temp_vector,temp_vector ,new Vector(1,-1,1));
         // =============== Boundary Values Tests ==================
         // test zero vector
         try {
-            v1.add(v2);
+            v1.subtract(v1);
             fail("subtract() for parallel vectors does not throw an exception");
         } catch (IllegalArgumentException ignored) {}
     }
@@ -67,7 +67,7 @@ public class VectorTest {
      * @throws IllegalArgumentException = ignored: if the scalar is zero
      */
     @Test
-    public void scale() {
+    public void scaleTest() {
         // ============ Equivalence Partitions Tests ==============
         //positive scale
         Vector temp_vector = v1.scale(2);
@@ -79,7 +79,7 @@ public class VectorTest {
         // test zero vector
         try {
             v1.scale(0);
-            fail("scale() for parallel vectors does not throw an exception");
+            fail("scale() with scalar = 0 does not throw an exception");
         } catch (IllegalArgumentException ignored) {}
     }
 
@@ -87,7 +87,7 @@ public class VectorTest {
      * we test the product between two vectors
      */
     @Test
-    public void dotProduct() {
+    public void dotProductTest() {
         // ============ Equivalence Partitions Tests ==============
         double temp_result = v1.dotProduct(v2);
         assertTrue("dotProduct() has wrong result",isZero(temp_result +14.0));
@@ -99,7 +99,7 @@ public class VectorTest {
      * @throws IllegalArgumentException = ignored: if the vectors are collinear
      */
     @Test
-    public void crossProduct() {
+    public void crossProductTest() {
         // ============ Equivalence Partitions Tests ==============
         Vector temp_vector = v1.crossProduct(v4);
         assertEquals("crossProduct() has wrong result",temp_vector ,new Vector(-13,2,3));
@@ -119,7 +119,7 @@ public class VectorTest {
      * we test the calcul of the lengthSquared
      */
     @Test
-    public void lengthSquared() {
+    public void lengthSquaredTest() {
         // ============ Equivalence Partitions Tests ==============
         assertTrue("ERROR: lengthSquared() wrong value", isZero(v1.lengthSquared() - 14));
     }
@@ -128,7 +128,7 @@ public class VectorTest {
      * we test the calculog the lenght
      */
     @Test
-    public void length() {
+    public void lengthTest() {
         // ============ Equivalence Partitions Tests ==============
         assertTrue("ERROR: lengthSquared() wrong value", isZero(new Vector(0, 3, 4).length() - 5));
     }
@@ -137,18 +137,18 @@ public class VectorTest {
      * we test the action of normalizing a vector
      */
     @Test
-    public void normalize() {
+    public void normalizeTest() {
         // ============ Equivalence Partitions Tests ==============
         Vector vCopy = new Vector(v1);
         Vector u = vCopy.normalize();
-        assertTrue("ERROR: normalizate() function creates a new vector", u == vCopy);
+        assertTrue("ERROR: normalize() function creates a new vector", u == vCopy);
     }
 
 	/**
      * we test the creation of a new vector normalized.
      */
     @Test
-    public void normalized() {
+    public void normalizedTest() {
         // ============ Equivalence Partitions Tests ==============
         Vector vCopy = new Vector(v1);
         Vector vCopyNormalize = vCopy.normalized();

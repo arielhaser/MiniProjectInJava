@@ -4,10 +4,12 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * define Plane as a geometry object
@@ -56,18 +58,31 @@ public class Plane implements Geometry {
                 '}';
     }
 
+    /**
+     * allows us to get the plane's normal
+     * @param p: the point
+     * @return the normal of the plane
+     */
     @Override
     public Vector getNormal(Point3D p) {
         return _normal;
     }
 
+    /**
+     * this function allows to find the intersections between the ray and the plane
+     * @param ray: the ray
+     * @return a list : result => if null: there isn't intersection and if not null,
+     *         it includes all intersections
+     */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        double numerator = alignZero(_normal.dotProduct(_p.subtract(ray.get_p00())));
-        double denominator = alignZero(_normal.dotProduct(ray.get_direction()));
-        if(denominator == 0 || numerator/denominator <= 0)
-            return null;
+        Vector v = ray.get_direction();
+        Point3D p0 = ray.get_p00();
+        double numerator = alignZero(_normal.dotProduct(_p.subtract(p0)));
+        double denominator = alignZero(_normal.dotProduct(v));
         double t = alignZero(numerator/denominator);
+        if(isZero(denominator) || t <= 0) // if denominator == 0: ray is parallel to the place => no intersection
+            return null;
         List<Point3D> result = new ArrayList<>();
         result.add(new Point3D(ray.getPoint(t)));
         return result;

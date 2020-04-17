@@ -19,14 +19,16 @@ public class PlaneTest {
      * we test the obtaining of the normal to the plane
      */
     @Test
-    public void getNormal() {
+    public void getNormalTest() {
         Vector normal_vector = pl1.getNormal(null);
         assertEquals("normal isn't right", normal_vector, new Vector(3,-6,3).normalize());
     }
 
-
+    /**
+     * test of the function findIntersection for the plane
+     */
     @Test
-    public void findIntsersections() {
+    public void findIntersectionsTest() {
         // ============ Equivalence Partitions Tests ==============
         //TC01: Ray intersects the plane
         Point3D p1 = new Point3D(0.5000000000000002, 0.37499999999999994, 1.25);

@@ -140,7 +140,7 @@ public class VectorTest {
     public void normalizeTest() {
         // ============ Equivalence Partitions Tests ==============
         Vector vCopy = new Vector(v1);
-        Vector u = vCopy.normalize();
+        Vector u = vCopy;
         assertTrue("ERROR: normalize() function creates a new vector", u == vCopy);
     }
 

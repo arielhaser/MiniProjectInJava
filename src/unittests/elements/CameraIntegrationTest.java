@@ -1,0 +1,177 @@
+package elements;
+
+import geometries.Plane;
+import geometries.Sphere;
+import geometries.Triangle;
+import org.junit.Test;
+import primitives.Point3D;
+import primitives.Vector;
+
+import java.util.List;
+import static org.junit.Assert.*;
+
+public class CameraIntegrationTest {
+    Camera cma1 = new Camera(Point3D.ZERO, new Vector(0, -1, 0), new Vector(0, 0, 1));
+    Camera cma2 = new Camera(new Point3D(0,0,-0.5), new Vector(0, -1, 0), new Vector(0, 0, 1));
+
+    @Test
+    public void testConstructRayThroughPixelWithSphere1() {
+        Sphere sphere = new Sphere(1, new Point3D(0,0,3));
+
+        List<Point3D> results;
+        int counter = 0;
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                results = sphere.findIntersections(cma1.constructRayThroughPixel(3,3,j,i,1,3,3));
+                if (results!=null)
+                    counter += results.size();
+            }
+        }
+        assertEquals("wrong intersections number", counter, 2);
+    }
+
+    @Test
+    public void testConstructRayThroughPixelWithSphere2() {
+        Sphere sphere = new Sphere(2.5, new Point3D(0,0,2.5));
+
+        List<Point3D> results;
+        int counter = 0;
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                results = sphere.findIntersections(cma2.constructRayThroughPixel(3,3,j,i,1,3,3));
+                if (results!=null)
+                    counter += results.size();
+            }
+        }
+        assertEquals("wrong intersections number", counter, 18);
+    }
+
+    @Test
+    public void testConstructRayThroughPixelWithSphere3() {
+        Sphere sphere = new Sphere(2, new Point3D(0,0,2));
+
+        List<Point3D> results;
+        int counter = 0;
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                results = sphere.findIntersections(cma2.constructRayThroughPixel(3,3,j,i,1,3,3));
+                if (results!=null)
+                    counter += results.size();
+            }
+        }
+        assertEquals("wrong intersections number", counter, 10);
+    }
+
+    @Test
+    public void testConstructRayThroughPixelWithSphere4() {
+        Sphere sphere = new Sphere(4, new Point3D(0,0,1));
+
+        List<Point3D> results;
+        int counter = 0;
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                results = sphere.findIntersections(cma1.constructRayThroughPixel(3,3,j,i,1,3,3));
+                if (results!=null)
+                    counter += results.size();
+            }
+        }
+        assertEquals("wrong intersections number", counter, 9);
+    }
+
+    @Test
+    public void testConstructRayThroughPixelWithSphere5() {
+        Sphere sphere = new Sphere(0.5, new Point3D(0,0,-1));
+
+        List<Point3D> results;
+        int counter = 0;
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                results = sphere.findIntersections(cma1.constructRayThroughPixel(3,3,j,i,1,3,3));
+                if (results!=null)
+                    counter += results.size();
+            }
+        }
+        assertEquals("wrong intersections number", counter, 0);
+    }
+
+    @Test
+    public void testConstructRayThroughPixelWithPlane1() {
+        Plane plane = new Plane(new Point3D(1,1,5), new Point3D(1,2,5), new Point3D(0, 0, 5));
+
+        List<Point3D> results;
+        int counter = 0;
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                results = plane.findIntersections(cma1.constructRayThroughPixel(3,3,j,i,1,3,3));
+                if (results!=null)
+                    counter += results.size();
+            }
+        }
+        assertEquals("wrong intersections number", counter, 9);
+    }
+
+    @Test
+    public void testConstructRayThroughPixelWithPlane2() {
+        Plane plane = new Plane(new Point3D(2,3,0), new Point3D(2,0,1), new Point3D(3,-4,2));
+
+        List<Point3D> results;
+        int counter = 0;
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                results = plane.findIntersections(cma1.constructRayThroughPixel(3,3,j,i,1,3,3));
+                if (results!=null)
+                    counter += results.size();
+            }
+        }
+        assertEquals("wrong intersections number", counter, 9);
+    }
+
+    @Test
+    public void testConstructRayThroughPixelWithPlane3() {
+        Plane plane = new Plane(new Point3D(0,-5,0), new Point3D(1,2,7), new Point3D(2,2,7));
+
+        List<Point3D> results;
+        int counter = 0;
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                results = plane.findIntersections(cma1.constructRayThroughPixel(3,3,j,i,1,3,3));
+                if (results!=null)
+                    counter += results.size();
+            }
+        }
+        assertEquals("wrong intersections number", counter, 6);
+    }
+
+    @Test
+    public void testConstructRayThroughPixelWithTriangle1() {
+        Triangle triangle = new Triangle(new Point3D(0,-1,2), new Point3D(1,1,2), new Point3D(-1,1,2));
+
+        List<Point3D> results;
+        int counter = 0;
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                results = triangle.findIntersections(cma1.constructRayThroughPixel(3,3,j,i,1,3,3));
+                if (results!=null)
+                    counter += results.size();
+            }
+        }
+        assertEquals("wrong intersections number", counter, 1);
+    }
+
+    @Test
+    public void testConstructRayThroughPixelWithTriangle2() {
+        Triangle triangle = new Triangle(new Point3D(0,-20,2), new Point3D(1,1,2), new Point3D(-1,1,2));
+
+        List<Point3D> results;
+        int counter = 0;
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                results = triangle.findIntersections(cma1.constructRayThroughPixel(3,3,j,i,1,3,3));
+                if (results!=null)
+                    counter += results.size();
+            }
+        }
+        assertEquals("wrong intersections number", counter, 2);
+    }
+
+}

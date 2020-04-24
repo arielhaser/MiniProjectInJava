@@ -66,7 +66,7 @@ public class Sphere extends RadialGeometry implements Geometry {
         }
         Vector u = _center.subtract(p0);
         double t1, t2;
-        if(u.isSameVector(v)){ // it's the continuation of the radius
+        if(u.isSameVector(v) && !u.isOppositeDirection(v)){ // it's the continuation of the radius
             t1 = alignZero(u.length()-_radius);
             t2 = alignZero(u.length()+_radius);
         }

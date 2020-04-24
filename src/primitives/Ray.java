@@ -13,13 +13,10 @@ public class Ray  {
      * constructor of Ray
      * @param _p00 = start 3D point of the ray
      * @param _direction = vector with contain a direction
-     * @throws IllegalArgumentException = when vector isn't with size 1
      */
-    public Ray(Point3D _p00, Vector _direction) throws IllegalArgumentException {
-        if (!isZero(_direction.length()-1))
-            throw new IllegalArgumentException("vector not normalize");
+    public Ray(Point3D _p00, Vector _direction) {
         this._p00 = _p00;
-        this._direction = _direction;
+        this._direction = _direction.normalize();
     }
 
     public Point3D get_p00() {
@@ -28,10 +25,6 @@ public class Ray  {
 
     public Vector get_direction() {
         return _direction;
-    }
-
-    public boolean isPointOnRay(Point3D other){
-        return _p00.equals(other) || _direction.isSameVector(other.subtract(_p00));
     }
 
     public Point3D getPoint(double t){

@@ -15,7 +15,7 @@ public class CylinderTest {
      */
     @Test
     public void testConstructor() {
-        Ray temp_ray = new Ray(new Point3D(1, 2, 3), new Vector(4, 5, 6).normalize());
+        Ray temp_ray = new Ray(new Point3D(1, 2, 3), new Vector(4, 5, 6));
         new Cylinder(3, temp_ray, 10);
     }
 }

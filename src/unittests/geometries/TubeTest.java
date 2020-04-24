@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  * class allowing to test the different operations on a Tube
  */
 public class TubeTest {
-    Tube tu = new Tube(2.189111188, new Ray(new Point3D(1,2,3), new Vector(4,5,6).normalize()));
+    Tube tu = new Tube(2.189111188, new Ray(new Point3D(1,2,3), new Vector(4,5,6)));
 
     /**
      * we test the obtaining of the normal to the tube

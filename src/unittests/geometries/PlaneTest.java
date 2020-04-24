@@ -33,46 +33,46 @@ public class PlaneTest {
         //TC01: Ray intersects the plane
         Point3D p1 = new Point3D(0.5000000000000002, 0.37499999999999994, 1.25);
         List<Point3D> result = pl1.findIntersections(new Ray(new Point3D(0, 0.5, 1),
-                new Vector(2, -0.5, 1).normalize()));
+                new Vector(2, -0.5, 1)));
         assertEquals("Wrong number of points", 1, result.size());
         assertEquals("Ray crosses plane", List.of(p1), result);
 
         //TC02: Ray does not intersect the plane
         result = pl1.findIntersections(new Ray(new Point3D(1, 0, 1),
-                new Vector(1, 0, 0).normalize()));
+                new Vector(1, 0, 0)));
         assertEquals("Ray's line out of plane", null, result);
 
         // =============== Boundary Values Tests ==================
         //TC03: the ray included in the plane
         result = pl1.findIntersections(new Ray(new Point3D(1, 2, 4),
-                new Vector(0, 2, 4).normalize()));
+                new Vector(0, 2, 4)));
         assertEquals("Ray's line out of plane", null, result);
 
         //TC04: the ray not included in the plane
         result = pl1.findIntersections(new Ray(new Point3D(1, 0, 1),
-                new Vector(0, 2, 4).normalize()));
+                new Vector(0, 2, 4)));
         assertEquals("Ray's line out of plane", null, result);
 
         //TC05: Ray is orthogonal to the plane - before
         p1 = new Point3D(-0.8333333333333333, -0.33333333333333337, 1.1666666666666667);
         result = pl1.findIntersections(new Ray(new Point3D(-1, 0, 1),
-                new Vector(1,-2,1).normalize()));
+                new Vector(1,-2,1)));
         assertEquals("Wrong number of points", 1, result.size());
         assertEquals("Ray crosses plane", List.of(p1), result);
 
         //TC06: Ray is orthogonal to the plane - in
         result = pl1.findIntersections(new Ray(new Point3D(0, 0, 1),
-                new Vector(1, -2, 1).normalize()));
+                new Vector(1, -2, 1)));
         assertEquals("Ray's line out of plane", null, result);
 
         //TC07: Ray is orthogonal to the plane - after
         result = pl1.findIntersections(new Ray(new Point3D(1, 0, 1),
-                new Vector(1, -2, 1).normalize()));
+                new Vector(1, -2, 1)));
         assertEquals("Ray's line out of plane", null, result);
 
         //TC08: Ray is begins at the plane (𝑃0 is in the plane, but not the ray)
         result = pl1.findIntersections(new Ray(new Point3D(0, 0, 1),
-                new Vector(3, -2, 4).normalize()));
+                new Vector(3, -2, 4)));
         assertEquals("Ray's line out of plane", null, result);
 
     }

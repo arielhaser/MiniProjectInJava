@@ -1,5 +1,7 @@
 package primitives;
 
+import static primitives.Util.isZero;
+
 /**
  * Define vector object with direction and start point of (0,0,0)
  */
@@ -157,25 +159,31 @@ public class Vector {
         return new Vector(_head).normalize();
     }
 
+    public boolean isOppositeDirection(Vector other){
+        return _head.get_x().get() * other._head.get_x().get() <= 0 &&
+                _head.get_y().get() * other._head.get_y().get() <= 0 &&
+                _head.get_z().get() * other._head.get_z().get() <= 0;
+    }
+
     public boolean isSameVector(Vector other){
         boolean flag_x = false;
         boolean flag_y = false;
         boolean flag_z = false;
         double scale_x, scale_y, scale_z;
-        if(_head.get_x().get() == 0 || other.get_head().get_x().get() == 0){
-            if (_head.get_x().get() == other.get_head().get_x().get())
+        if(isZero(_head.get_x().get()) || isZero(other.get_head().get_x().get())){
+            if (isZero(_head.get_x().get() - other.get_head().get_x().get()))
                 flag_x = true;
             else
                 return false;
         }
-        if(_head.get_y().get() == 0 || other.get_head().get_y().get() == 0){
-            if (_head.get_y().get() == other.get_head().get_y().get())
+        if(isZero(_head.get_y().get()) || isZero(other.get_head().get_y().get())){
+            if (isZero(_head.get_y().get() - other.get_head().get_y().get()))
                 flag_y = true;
             else
                 return false;
         }
-        if(_head.get_z().get() == 0 || other.get_head().get_z().get() == 0){
-            if (_head.get_z().get() == other.get_head().get_z().get())
+        if(isZero(_head.get_z().get()) || isZero(other.get_head().get_z().get())){
+            if (isZero(_head.get_z().get() - other.get_head().get_z().get()))
                 flag_z = true;
             else
                 return false;
@@ -183,12 +191,9 @@ public class Vector {
         scale_x = _head.get_x().get()/other.get_head().get_x().get();
         scale_y = _head.get_y().get()/other.get_head().get_y().get();
         scale_z = _head.get_z().get()/other.get_head().get_z().get();
-        if ((scale_x == scale_y || flag_x || flag_y) &&
-                (scale_x == scale_z || flag_x || flag_z) &&
-                (scale_y == scale_z || flag_y || flag_z)){
-            return true;
-        }
-        return false;
+        return (isZero(scale_x - scale_y) || flag_x || flag_y) &&
+                (isZero(scale_x - scale_z) || flag_x || flag_z) &&
+                (isZero(scale_y - scale_z) || flag_y || flag_z);
     }
 
     @Override

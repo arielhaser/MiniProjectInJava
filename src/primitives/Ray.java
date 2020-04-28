@@ -12,7 +12,7 @@ public class Ray  {
     /**
      * constructor of Ray
      * @param _p00 = start 3D point of the ray
-     * @param _direction = vector with contain a direction
+     * @param _direction = vector normal with contain a direction
      */
     public Ray(Point3D _p00, Vector _direction) {
         this._p00 = _p00;

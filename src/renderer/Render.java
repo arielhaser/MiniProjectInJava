@@ -42,7 +42,7 @@ public class Render {
             for(int col = 0; col < nY; col++){
                 ray = camera.constructRayThroughPixel(nX, nY, col, row, distance, width, height);
                 List<Point3D> intersectionPoints = geometries.findIntersections(ray);
-                if (intersectionPoints.isEmpty()){
+                if (intersectionPoints == null){
                     _imageWriter.writePixel(col, row, background);
                 }
                 else{

@@ -7,6 +7,7 @@ import elements.Camera;
 import geometries.Geometries;
 import geometries.Intersectable;
 import primitives.Color;
+import primitives.Point3D;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class Scene {
 
     public Scene(String _name) {
         this._name = _name;
-
+        this._geometries = new Geometries(new ArrayList<Intersectable>());
     }
 
     public String getName() {

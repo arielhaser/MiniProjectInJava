@@ -7,16 +7,13 @@ import primitives.Color;
  */
 public class AmbientLight {
     Color _intensity;
-    double _kA;
 
     /**
      * the AmbientLight constructor using _intensity and _kA parameters
      * @param _intensity intensity filling lighting
-     * @param _kA Attenuation coefficient
      */
-    public AmbientLight(Color _intensity, double _kA) {
+    public AmbientLight(Color _intensity) {
         this._intensity = _intensity;
-        //this._kA = _kA; _kA is always 1 for the Ambient Light so we don't use it
     }
 
     /**

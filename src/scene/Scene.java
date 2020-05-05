@@ -12,6 +12,12 @@ import primitives.Point3D;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class that contain the all elements that a scene should be included
+ * which is: background color, the color of the light, the geometries,
+ * the passion of the camera and the distance between the camera and
+ * the view plane
+ */
 public class Scene {
     private  final String _name;
     private  Color _background;
@@ -20,7 +26,10 @@ public class Scene {
     private  Camera _camera;
     private  double _distance;
 
-
+    /**
+     * Scene's constructor
+     * @param _name = the name of the scene
+     */
     public Scene(String _name) {
         this._name = _name;
         this._geometries = new Geometries(new ArrayList<Intersectable>());

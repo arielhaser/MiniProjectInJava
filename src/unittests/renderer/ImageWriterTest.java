@@ -8,7 +8,15 @@ import primitives.*;
 
 import java.awt.Color;
 
+/**
+ * Test rendering basic image
+ */
 public class ImageWriterTest {
+
+    /**
+     * Produce a picture with basic color and render it into a jpeg image with a
+     * grid
+     */
     @Test
     public void writeToImageTest() {
         String imageName = "our image";

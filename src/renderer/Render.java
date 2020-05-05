@@ -9,24 +9,29 @@ import java.awt.*;
 import java.awt.Color;
 import java.util.List;
 
+/**
+ * A class for rendering image by the scene with image writer element
+ * to determine the properties of the image
+ */
 public class Render {
     Scene _scene;
     ImageWriter _imageWriter;
 
-    public Render(Scene _scene) {
-        this._scene = _scene;
-    }
-
-
+    /**
+     * Render's constructor
+     * @param _scene = list of 3D objects
+     * @param _imageWriter = properties of the image
+     */
     public Render(Scene _scene, ImageWriter _imageWriter) {
         this._scene = _scene;
         this._imageWriter = _imageWriter;
     }
 
-    public Scene get_scene() {
-        return _scene;
-    }
-
+    /**
+     * Draw any pixel in the view plane in specific color
+     * which determine by the objects' color's and background
+     * in the scene
+     */
     public void renderImage()
     {
         Camera camera = _scene.getCamera();
@@ -56,11 +61,22 @@ public class Render {
 
     }
 
+    /**
+     * Calculate the exact color which the pixel should be draw
+     * @param point = the nearest point which insert the objects' by the ray
+     * @return = the color of the pixel
+     */
     private Color calcColor(Point3D point)
     {
      return _scene.getAmbientLight().getIntensity();
     }
 
+    /**
+     * Find the closest point in the points on objects' which inserted
+     * by the ray
+     * @param intersectionPoints = list of the interaction points
+     * @return the closet 3D point
+     */
     private Point3D getClosestPoint(List<Point3D> intersectionPoints)
     {
         double minDistance = Double.MAX_VALUE;
@@ -76,10 +92,18 @@ public class Render {
         return minDistancePoint;
     }
 
+    /**
+     * activate writeToImage function which find in ImageWriter class
+     */
     public void writeToImage() {
         _imageWriter.writeToImage();
     }
 
+    /**
+     * print a grid on the image utself, useful for debugging
+     * @param interval = a number which decide how many times the line should be printed
+     * @param colorsep = specific color of the grid
+     */
     public void printGrid(int interval,java.awt.Color colorsep) {
         double rows = this._imageWriter.getNx();
         double cols = _imageWriter.getNy();

@@ -1,5 +1,6 @@
 package elements;
 
+import geometries.Intersectable;
 import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
@@ -14,9 +15,8 @@ import static org.junit.Assert.*;
  * class allowing to test the intersections between the ray from the camera and the different geometric shapes
  */
 public class CameraIntegrationTest {
-    Camera cma1 = new Camera(Point3D.ZERO, new Vector(0, -1, 0), new Vector(0, 0, 1));
-    Camera cma2 = new Camera(new Point3D(0,0,-0.5), new Vector(0, -1, 0),
-            new Vector(0, 0, 1));
+    Camera cma1 = new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
+    Camera cma2 = new Camera(new Point3D(0,0,-0.5), new Vector(0, 0, 1), new Vector(0, -1, 0));
 
     /**
      * test with a sphere with which we get 2 intersection points
@@ -25,7 +25,7 @@ public class CameraIntegrationTest {
     public void testConstructRayThroughPixelWithSphere1() {
         Sphere sphere = new Sphere(1, new Point3D(0,0,3));
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int counter = 0;
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){
@@ -45,7 +45,7 @@ public class CameraIntegrationTest {
     public void testConstructRayThroughPixelWithSphere2() {
         Sphere sphere = new Sphere(2.5, new Point3D(0,0,2.5));
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int counter = 0;
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){
@@ -65,7 +65,7 @@ public class CameraIntegrationTest {
     public void testConstructRayThroughPixelWithSphere3() {
         Sphere sphere = new Sphere(2, new Point3D(0,0,2));
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int counter = 0;
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){
@@ -85,7 +85,7 @@ public class CameraIntegrationTest {
     public void testConstructRayThroughPixelWithSphere4() {
         Sphere sphere = new Sphere(4, new Point3D(0,0,1));
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int counter = 0;
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){
@@ -105,7 +105,7 @@ public class CameraIntegrationTest {
     public void testConstructRayThroughPixelWithSphere5() {
         Sphere sphere = new Sphere(0.5, new Point3D(0,0,-1));
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int counter = 0;
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){
@@ -126,7 +126,7 @@ public class CameraIntegrationTest {
         Plane plane = new Plane(new Point3D(1,1,5), new Point3D(1,2,5),
                 new Point3D(0, 0, 5));
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int counter = 0;
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){
@@ -147,7 +147,7 @@ public class CameraIntegrationTest {
         Plane plane = new Plane(new Point3D(2,3,0), new Point3D(2,0,1),
                 new Point3D(3,-4,2));
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int counter = 0;
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){
@@ -168,7 +168,7 @@ public class CameraIntegrationTest {
         Plane plane = new Plane(new Point3D(0,-5,0), new Point3D(1,2,7),
                 new Point3D(2,2,7));
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int counter = 0;
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){
@@ -189,7 +189,7 @@ public class CameraIntegrationTest {
         Triangle triangle = new Triangle(new Point3D(0,-1,2), new Point3D(1,1,2),
                 new Point3D(-1,1,2));
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int counter = 0;
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){
@@ -210,7 +210,7 @@ public class CameraIntegrationTest {
         Triangle triangle = new Triangle(new Point3D(0,-20,2), new Point3D(1,1,2),
                 new Point3D(-1,1,2));
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int counter = 0;
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){

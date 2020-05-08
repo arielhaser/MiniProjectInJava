@@ -36,7 +36,7 @@ public class GeometriesTest {
 
         // ============ Equivalence Partitions Tests ==============
         //TC01: some of shapes inserted (but not all of them) (sphere and plane == 3 points)
-        List<Point3D> result = ge.findIntersections(new Ray(new Point3D(-1,0,0),
+        List<Intersectable.GeoPoint> result = ge.findIntersections(new Ray(new Point3D(-1,0,0),
                 new Vector(3.279177659930163, -2.886383725451189, 2)));
         assertEquals("Wrong number of points", 3, result.size());
 

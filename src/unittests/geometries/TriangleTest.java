@@ -32,10 +32,10 @@ public class TriangleTest {
         // ============ Equivalence Partitions Tests ==============
         //TC01: Ray intersects inside the triangle
         Point3D p1 = new Point3D(4.730966470652567, 5.418179791415758, 7.105393112178949);
-        List<Point3D> result = tr.findIntersections(new Ray(new Point3D(0,4,0),
+        List<Intersectable.GeoPoint> result = tr.findIntersections(new Ray(new Point3D(0,4,0),
                 new Vector(4.7309664706, 1.4181797914, 7.1053931121)));
         assertEquals("Wrong number of points", 1, result.size());
-        assertEquals("Ray crosses triangle", List.of(p1), result);
+        assertEquals("Ray crosses triangle", List.of(new Intersectable.GeoPoint(tr, p1)), result);
 
         //TC02: Ray intersects outside the triangle
         result = tr.findIntersections(new Ray(new Point3D(-4.27, 2.26, 0),

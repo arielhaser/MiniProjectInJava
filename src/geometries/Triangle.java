@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -12,6 +13,10 @@ import java.util.List;
 public class Triangle extends Polygon {
     public Triangle(Point3D x, Point3D y, Point3D z) {
         super(x, y, z);
+    }
+
+    public Triangle(Color _emission, Point3D x, Point3D y, Point3D z) {
+        super(_emission, x, y, z);
     }
 
     @Override
@@ -29,7 +34,7 @@ public class Triangle extends Polygon {
      *      *         it includes all intersections
      */
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         Point3D P0 = ray.get_p00();
 
         Vector v1 = _vertices.get(0).subtract(P0);
@@ -44,15 +49,16 @@ public class Triangle extends Polygon {
         double result2 = ray.get_direction().dotProduct(N2);
         double result3 = ray.get_direction().dotProduct(N3);
         if ((result1>0 && result2>0 && result3>0) || (result1<0 && result2<0 && result3<0)) {
-            List<Point3D> result = _plane.findIntersections(ray); //list of intersections
-            if (result != null && !P0.equals(result.get(0))) {
+            List<GeoPoint> result = _plane.findIntersections(ray); //list of intersections
+            if (result != null && !P0.equals(result.get(0).point)) {
+                result.get(0).geometry=this;
                 for (int i = 0; i < _vertices.size(); i++) { // special case to check if point on the the triangle's border
                     int j;
                     if (i+1 == _vertices.size())
                         j=0;
                     else
                         j=i+1;
-                    Vector checked_vector = result.get(0).subtract(_vertices.get(i));
+                    Vector checked_vector = result.get(0).point.subtract(_vertices.get(i));
                     Vector triangle_vector = _vertices.get(j).subtract(_vertices.get(i));
                     if (checked_vector.isSameVector(triangle_vector))
                         return null;

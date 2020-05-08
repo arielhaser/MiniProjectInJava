@@ -19,7 +19,7 @@ public class Camera {
      * @param _vTo the Towards direction of the camera
      * @param _vUp the up direction of the camera
      */
-    public Camera(Point3D _p0, Vector _vUp, Vector _vTo) {
+    public Camera(Point3D _p0, Vector _vTo, Vector _vUp) {
         if (_vTo.dotProduct(_vUp) != 0)
             throw new IllegalArgumentException("Vectors aren't orthogonally each other");
         this._p0 = _p0;

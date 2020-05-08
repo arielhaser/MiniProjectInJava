@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -12,7 +13,7 @@ import static primitives.Util.alignZero;
 /**
  * define Sphere as a shape of RadialGeometry
  */
-public class Sphere extends RadialGeometry implements Geometry {
+public class Sphere extends RadialGeometry {
     protected Point3D _center;
 
     /**
@@ -23,6 +24,17 @@ public class Sphere extends RadialGeometry implements Geometry {
     public Sphere(double _radius, Point3D _center) {
         super(_radius);
         this._center = _center;
+    }
+
+    /**
+     * constructor of Sphere
+     * @param _emission = color of the object
+     * @param _radius = radius of Sphere
+     * @param _center = the point of the center of the Sphere
+     */
+    public Sphere(Color _emission, double _radius, Point3D _center) {
+        this(_radius, _center);
+        this._emission = _emission;
     }
 
     public Point3D get_center() {
@@ -55,13 +67,13 @@ public class Sphere extends RadialGeometry implements Geometry {
      *         it includes all intersections
      */
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         Point3D p0 = ray.get_p00();
         Vector v = ray.get_direction();
 
         if(_center.equals(p0)){
-            List<Point3D> results = new ArrayList<>();
-            results.add(new Point3D(ray.getPoint(_radius)));
+            List<GeoPoint> results = new ArrayList<>();
+            results.add(new GeoPoint(this, ray.getPoint(_radius)));
             return results;
         }
         Vector u = _center.subtract(p0);
@@ -84,12 +96,12 @@ public class Sphere extends RadialGeometry implements Geometry {
         if((t1<=0 && t2<=0)||(t1==t2))// there isn't intersection
             return null;
 
-        List<Point3D> results = new ArrayList<>();
+        List<GeoPoint> results = new ArrayList<>();
         if(t1>0){
-            results.add(new Point3D(ray.getPoint(t1)));
+            results.add(new GeoPoint(this, ray.getPoint(t1)));
         }
         if(t2>0){
-            results.add(new Point3D(ray.getPoint(t2)));
+            results.add(new GeoPoint(this, ray.getPoint(t2)));
         }
         return results;
     }

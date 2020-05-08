@@ -3,10 +3,11 @@ package renderer;
 import elements.*;
 import geometries.*;
 import primitives.*;
+import primitives.Color;
 import scene.Scene;
+import geometries.Intersectable.GeoPoint;
 
-import java.awt.*;
-import java.awt.Color;
+//import java.awt.Color;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public class Render {
      * @param _scene = list of 3D objects
      * @param _imageWriter = properties of the image
      */
-    public Render(Scene _scene, ImageWriter _imageWriter) {
+    public Render(ImageWriter _imageWriter, Scene _scene) {
         this._scene = _scene;
         this._imageWriter = _imageWriter;
     }
@@ -46,16 +47,15 @@ public class Render {
         for(int row = 0; row < nX;  row++){
             for(int col = 0; col < nY; col++){
                 ray = camera.constructRayThroughPixel(nX, nY, col, row, distance, width, height);
-                List<Point3D> intersectionPoints = geometries.findIntersections(ray);
+                List<GeoPoint> intersectionPoints = geometries.findIntersections(ray);
                 if (intersectionPoints == null){
                     _imageWriter.writePixel(col, row, background);
                 }
                 else{
-                    Point3D closestPoint = getClosestPoint(intersectionPoints);
+                    GeoPoint closestPoint = getClosestPoint(intersectionPoints);
                     _imageWriter.writePixel(col, row, calcColor(closestPoint));
 
                 }
-
             }
         }
 
@@ -63,12 +63,14 @@ public class Render {
 
     /**
      * Calculate the exact color which the pixel should be draw
-     * @param point = the nearest point which insert the objects' by the ray
+     * @param geo = the nearest point which insert the objects' by the ray
      * @return = the color of the pixel
      */
-    private Color calcColor(Point3D point)
+    private java.awt.Color calcColor(GeoPoint geo)
     {
-     return _scene.getAmbientLight().getIntensity();
+        Color color = new Color(_scene.getAmbientLight().getIntensity());
+        color = color.add(geo.geometry.get_emission());
+        return color.getColor();
     }
 
     /**
@@ -77,17 +79,17 @@ public class Render {
      * @param intersectionPoints = list of the interaction points
      * @return the closet 3D point
      */
-    private Point3D getClosestPoint(List<Point3D> intersectionPoints)
+    private GeoPoint getClosestPoint(List<GeoPoint> intersectionPoints)
     {
         double minDistance = Double.MAX_VALUE;
         Point3D p0 = this._scene.getCamera().get_p0();
-        Point3D minDistancePoint = null;
+        GeoPoint minDistancePoint = null;
 
-        for (Point3D point: intersectionPoints)
+        for (GeoPoint geoPoint: intersectionPoints)
         {
-         if(p0.distance(point) < minDistance){
-            minDistance = p0.distance(point);
-             minDistancePoint = new Point3D(point);}
+         if(p0.distance(geoPoint.point) < minDistance){
+            minDistance = p0.distance(geoPoint.point);
+            minDistancePoint = new GeoPoint(geoPoint.geometry, geoPoint.point);}
         }
         return minDistancePoint;
     }
@@ -104,7 +106,7 @@ public class Render {
      * @param interval = a number which decide how many times the line should be printed
      * @param colorsep = specific color of the grid
      */
-    public void printGrid(int interval,java.awt.Color colorsep) {
+    public void printGrid(int interval,java.awt.Color colorsep) { ;
         double rows = this._imageWriter.getNx();
         double cols = _imageWriter.getNy();
         //Writing the lines.

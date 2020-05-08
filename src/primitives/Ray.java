@@ -27,6 +27,11 @@ public class Ray  {
         return _direction;
     }
 
+    /**
+     * Get the inserted point with an object
+     * @param t = the scale number which multiple the direction's vector
+     * @return = the inserted 3D point
+     */
     public Point3D getPoint(double t){
         return _p00.add(_direction.scale(t));
     }

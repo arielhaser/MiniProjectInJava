@@ -32,10 +32,10 @@ public class PlaneTest {
         // ============ Equivalence Partitions Tests ==============
         //TC01: Ray intersects the plane
         Point3D p1 = new Point3D(0.5000000000000002, 0.37499999999999994, 1.25);
-        List<Point3D> result = pl1.findIntersections(new Ray(new Point3D(0, 0.5, 1),
+        List<Intersectable.GeoPoint> result = pl1.findIntersections(new Ray(new Point3D(0, 0.5, 1),
                 new Vector(2, -0.5, 1)));
         assertEquals("Wrong number of points", 1, result.size());
-        assertEquals("Ray crosses plane", List.of(p1), result);
+        assertEquals("Ray crosses plane", List.of(new Intersectable.GeoPoint(pl1, p1)), result);
 
         //TC02: Ray does not intersect the plane
         result = pl1.findIntersections(new Ray(new Point3D(1, 0, 1),
@@ -58,7 +58,7 @@ public class PlaneTest {
         result = pl1.findIntersections(new Ray(new Point3D(-1, 0, 1),
                 new Vector(1,-2,1)));
         assertEquals("Wrong number of points", 1, result.size());
-        assertEquals("Ray crosses plane", List.of(p1), result);
+        assertEquals("Ray crosses plane", List.of(new Intersectable.GeoPoint(pl1, p1)), result);
 
         //TC06: Ray is orthogonal to the plane - in
         result = pl1.findIntersections(new Ray(new Point3D(0, 0, 1),

@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -14,7 +15,7 @@ import static primitives.Util.isZero;
 /**
  * define Plane as a geometry object
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
     protected Point3D _p;
     protected Vector _normal;
 
@@ -40,6 +41,17 @@ public class Plane implements Geometry {
         Vector v2 = z.subtract(x);
         Vector temp_vector = v1.crossProduct(v2);
         _normal = temp_vector.normalized();
+    }
+
+    /**
+     * constructor of Plane
+     * @param _emission = the color of object
+     * @param _p = point on the Plane
+     * @param _normal = a normal vector come from the Plane
+     */
+    public Plane(Color _emission, Point3D _p, Vector _normal) {
+        this(_p, _normal);
+        this._emission = _emission;
     }
 
     public Point3D get_p() {
@@ -75,7 +87,7 @@ public class Plane implements Geometry {
      *         it includes all intersections
      */
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         Vector v = ray.get_direction();
         Point3D p0 = ray.get_p00();
         double numerator = alignZero(_normal.dotProduct(_p.subtract(p0)));
@@ -83,8 +95,8 @@ public class Plane implements Geometry {
         double t = alignZero(numerator/denominator);
         if(isZero(denominator) || t <= 0) // if denominator == 0: ray is parallel to the place => no intersection
             return null;
-        List<Point3D> result = new ArrayList<>();
-        result.add(new Point3D(ray.getPoint(t)));
+        List<GeoPoint> result = new ArrayList<>();
+        result.add(new GeoPoint(this, ray.getPoint(t)));
         return result;
     }
 }

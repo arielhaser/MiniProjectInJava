@@ -1,10 +1,11 @@
 package renderer;
 
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import primitives.Color;
 import javax.imageio.*;
 import javax.imageio.stream.*;
 
@@ -96,7 +97,7 @@ public class ImageWriter {
      * @param yIndex Y axis index of the pixel
      * @param color final color of the pixel
      */
-    public void writePixel(int xIndex, int yIndex, Color color){
+    public void writePixel(int xIndex, int yIndex, java.awt.Color color){
         _image.setRGB(xIndex, yIndex, color.getRGB());
     }
 

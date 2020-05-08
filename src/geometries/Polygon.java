@@ -3,6 +3,8 @@ package geometries;
 import java.awt.*;
 import java.util.List;
 import primitives.*;
+import primitives.Color;
+
 import static primitives.Util.*;
 
 /**
@@ -11,7 +13,7 @@ import static primitives.Util.*;
  * 
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
     /**
      * List of polygon's vertices
      */
@@ -81,13 +83,23 @@ public class Polygon implements Geometry {
         }
     }
 
+    /**
+     *
+     * @param _emission = the color of object
+     * @param vertices = list of vertices according to their order by edge path
+     */
+    public Polygon(Color _emission, Point3D... vertices) {
+        this(vertices);
+        this._emission = _emission;
+    }
+
     @Override
     public Vector getNormal(Point3D point) {
         return _plane.getNormal(null);
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         return null;
     }
 }

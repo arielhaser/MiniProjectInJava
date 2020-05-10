@@ -5,22 +5,16 @@ import primitives.Color;
 /**
  * A class that represents ambient light of the scene
  */
-public class AmbientLight {
-    Color _intensity;
+public class AmbientLight extends Light {
 
     /**
-     * the AmbientLight constructor using _intensity and _kA parameters
-     * @param _intensity intensity filling lighting
+     * the Ambient Light constructor using the constructor of the class Light
+     * @param _intenstity intensity filling lighting
      */
-    public AmbientLight(Color _intensity) {
-        this._intensity = _intensity;
+    public AmbientLight(Color _intenstity) {
+        super(_intenstity);
     }
 
-    /**
-     * a function allowing to  return the value of the Color ambient lighting intensity.
-     * @return the value of the Color ambient lighting intensity.
-     */
-    public java.awt.Color getIntensity(){
-        return _intensity.getColor();
-    }
+
+
 }

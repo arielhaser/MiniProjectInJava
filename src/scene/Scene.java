@@ -26,6 +26,7 @@ public class Scene {
     private  Camera _camera;
     private  double _distance;
 
+
     /**
      * Scene's constructor
      * @param _name = the name of the scene

@@ -34,6 +34,11 @@ public class Sphere extends RadialGeometry {
         this._emission = _emission;
     }
 
+    public Sphere(Color _emission, Material _material, double _radius, Point3D _center) {
+        this(_emission, _radius, _center);
+        this._material = _material;
+    }
+
     public Point3D get_center() {
         return _center;
     }

@@ -1,9 +1,6 @@
 package geometries;
 
-import primitives.Color;
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 
@@ -37,6 +34,11 @@ public abstract class RadialGeometry extends Geometry {
     public RadialGeometry(Color _emission, double _radius) {
         this(_radius);
         this._emission = _emission;
+    }
+
+    public RadialGeometry(Color _emission, Material _material, double _radius) {
+        this(_emission, _radius);
+        this._material = _material;
     }
 
     public double get_radius() {

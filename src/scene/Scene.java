@@ -2,14 +2,14 @@ package scene;
 
 import elements.AmbientLight;
 import elements.Camera;
-//import elements.DirectionalLight;
-//import elements.Light;
+import elements.LightSource;
 import geometries.Geometries;
 import geometries.Intersectable;
 import primitives.Color;
 import primitives.Point3D;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -25,6 +25,7 @@ public class Scene {
     private  Geometries _geometries;
     private  Camera _camera;
     private  double _distance;
+    List<LightSource> _lights = new LinkedList<LightSource>();
 
 
     /**
@@ -86,5 +87,15 @@ public class Scene {
 
     public void setDistance(double _distance) {
         this._distance = _distance;
+    }
+
+    public List<LightSource> get_lights() {
+        return _lights;
+    }
+
+    public void addLights(LightSource... lights) {
+        for (LightSource light : lights) {
+            _lights.add(light);
+        }
     }
 }

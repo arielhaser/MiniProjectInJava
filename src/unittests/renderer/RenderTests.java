@@ -1,17 +1,17 @@
-package renderer;
+package unittests;
 
 import org.junit.Test;
 
 import elements.*;
 import geometries.*;
 import primitives.*;
-import renderer.*;
+import renderer.ImageWriter;
+import renderer.Render;
 import scene.Scene;
-
 
 /**
  * Test rendering abasic image
- *
+ * 
  * @author Dan
  */
 public class RenderTests {
@@ -26,7 +26,7 @@ public class RenderTests {
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(100);
         scene.setBackground(new Color(75, 127, 90));
-        scene.setAmbientLight(new AmbientLight(new Color(255, 191, 191)));
+        scene.setAmbientLight(new AmbientLight(new Color(255, 191, 191), 1));
 
         scene.addGeometries(new Sphere(50, new Point3D(0, 0, 100)));
 
@@ -43,21 +43,21 @@ public class RenderTests {
         render.printGrid(50, java.awt.Color.YELLOW);
         render.writeToImage();
     }
-
+    
     @Test
     public void basicRenderMultiColorTest() {
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(100);
         scene.setBackground(Color.BLACK);
-        scene.setAmbientLight(new AmbientLight(Color.BLACK));
+        scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.2));
 
-        scene.addGeometries(new Sphere(new Color(51,51,51), 50, new Point3D(0, 0, 100)));
+        scene.addGeometries(new Sphere(50, new Point3D(0, 0, 100)));
 
         scene.addGeometries(
                 new Triangle(new Color(java.awt.Color.BLUE),
                         new Point3D(100, 0, 100), new Point3D(0, 100, 100), new Point3D(100, 100, 100)),      // lower right
-                new Triangle(new Color(51,51,51),
+                new Triangle(
                         new Point3D(100, 0, 100), new Point3D(0, -100, 100), new Point3D(100, -100, 100)),    // upper right
                 new Triangle(new Color(java.awt.Color.RED),
                         new Point3D(-100, 0, 100), new Point3D(0, 100, 100), new Point3D(-100, 100, 100)),    // lower left

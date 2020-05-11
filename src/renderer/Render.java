@@ -68,9 +68,43 @@ public class Render {
      */
     private java.awt.Color calcColor(GeoPoint geo)
     {
-        Color color = new Color(_scene.getAmbientLight().getIntensity());
+        Color color = new Color(_scene.getAmbientLight().get_intensity());
         color = color.add(geo.geometry.get_emission());
+        Vector v = geo.point.subtract(_scene.getCamera().get_p0()).normalize();
+        Vector n = geo.geometry.getNormal(geo.point);
+        Material material = geo.geometry.get_material();
+        int nShininess = material.get_nShininess();
+        double kd = material.get_kD();
+        double ks = material.get_kS();
+        for (LightSource lightSource : _scene.get_lights()) {
+            Vector l = lightSource.getL(geo.point);
+            if (sign(n.dotProduct(l)) == sign(n.dotProduct(v))) {
+                Color lightIntensity = lightSource.getIntensity(geo.point);
+                color = color.add(calcDiffusive(kd, l, n, lightIntensity),
+                        calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+            }
+        }
         return color.getColor();
+    }
+
+    private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
+        Vector r = (n.scale((l.dotProduct(n))*-2)).add(l);
+        return lightIntensity.scale(ks*(Math.pow((v.scale(-1)).dotProduct(r), nShininess)));
+    }
+
+    private Color calcDiffusive(double kd, Vector l, Vector n, Color lightIntensity) {
+        return lightIntensity.scale(kd*Math.abs(l.dotProduct(n)));
+    }
+
+    /**
+     * check if number is positive or negative
+     * @param num = number to check
+     * @return = 'p' for positive, 'n' for negative
+     */
+    private char sign(double num) {
+        if (num < 0)
+            return 'n';
+        return 'p';
     }
 
     /**

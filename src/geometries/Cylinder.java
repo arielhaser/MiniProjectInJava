@@ -1,6 +1,7 @@
 package geometries;
 
 import primitives.Color;
+import primitives.Material;
 import primitives.Ray;
 
 /**
@@ -30,6 +31,11 @@ public class Cylinder extends Tube {
     public Cylinder(Color _emission, double _radius, Ray _axisRay, double _height) {
         this(_radius, _axisRay, _height);
         this._emission = _emission;
+    }
+
+    public Cylinder(Color _emission, Material _material, double _radius, Ray _axisRay, double _height) {
+        this(_emission, _radius, _axisRay, _height);
+        this._material = _material;
     }
 
     public double get_height() {

@@ -93,6 +93,11 @@ public class Polygon extends Geometry {
         this._emission = _emission;
     }
 
+    public Polygon(Color _emission, Material _material, Point3D... _vertices) {
+        this(_emission, _vertices);
+        this._material =  _material;
+    }
+
     @Override
     public Vector getNormal(Point3D point) {
         return _plane.getNormal(null);

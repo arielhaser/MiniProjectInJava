@@ -1,0 +1,185 @@
+Index: src/elements/AmbientLight.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package elements;\r\n\r\nimport primitives.Color;\r\n\r\n/**\r\n * A class that represents ambient light of the scene\r\n */\r\npublic class AmbientLight extends Light {\r\n\r\n    /**\r\n     * the Ambient Light constructor using the constructor of the class Light\r\n     * @param _intenstity intensity filling lighting\r\n     */\r\n    public AmbientLight(Color _intenstity) {\r\n        super(_intenstity);\r\n    }\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/elements/AmbientLight.java	(revision c9c21d3aa0cf387f9ed84f8465812ec379ebd82e)
++++ src/elements/AmbientLight.java	(date 1589185531551)
+@@ -9,10 +9,10 @@
+ 
+     /**
+      * the Ambient Light constructor using the constructor of the class Light
+-     * @param _intenstity intensity filling lighting
++     * @param _intenstity intensity filling lighting - done.
+      */
+-    public AmbientLight(Color _intenstity) {
+-        super(_intenstity);
++    public AmbientLight(Color _intenstity, double kA) {
++        super(_intenstity.scale(kA));
+     }
+ 
+ 
+Index: src/elements/SpotLight.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/elements/SpotLight.java	(date 0)
++++ src/elements/SpotLight.java	(date 0)
+@@ -0,0 +1,22 @@
++package elements;
++
++import primitives.Color;
++import primitives.Point3D;
++import primitives.Vector;
++
++import static sun.swing.MenuItemLayoutHelper.max;
++
++public class SpotLight extends PointLight {
++    private Vector _direction;
++
++    public SpotLight(Color _intensity, Point3D _position, double _kC, double _kL, double _kQ, Vector _direction) {
++        super(_intensity, _position, _kC, _kL, _kQ);
++        this._direction = _direction;
++    }
++
++    @Override
++    public Color getIntensity(Point3D p) {
++        return super.getIntensity(p).scale(max(0, (int) _direction.dotProduct(getL(p))));
++    }
++
++}
+Index: src/elements/Light.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/elements/Light.java	(date 0)
++++ src/elements/Light.java	(date 0)
+@@ -0,0 +1,15 @@
++package elements;
++
++import primitives.Color;
++
++abstract class Light {
++    protected Color _intensity;
++
++    public Light(Color _intensity) {
++        this._intensity = _intensity;
++    }
++
++    public Color get_intensity() {
++        return _intensity;
++    }
++}
+Index: src/elements/LightSource.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/elements/LightSource.java	(date 0)
++++ src/elements/LightSource.java	(date 0)
+@@ -0,0 +1,11 @@
++package elements;
++
++import primitives.Color;
++import primitives.Point3D;
++import primitives.Vector;
++
++public interface LightSource {
++    public Color getIntensity(Point3D p);
++    public Vector getL(Point3D p);
++
++}
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"CompilerConfiguration\">\r\n    <bytecodeTargetLevel target=\"10\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/compiler.xml	(revision c9c21d3aa0cf387f9ed84f8465812ec379ebd82e)
++++ .idea/compiler.xml	(date 1589185531548)
+@@ -3,4 +3,9 @@
+   <component name="CompilerConfiguration">
+     <bytecodeTargetLevel target="10" />
+   </component>
++  <component name="JavacSettings">
++    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
++      <module name="Mini_Projct" options="--add-exports java.desktop/sun.swing=ALL-UNNAMED" />
++    </option>
++  </component>
+ </project>
+\ No newline at end of file
+Index: src/elements/DirectionalLight.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/elements/DirectionalLight.java	(date 0)
++++ src/elements/DirectionalLight.java	(date 0)
+@@ -0,0 +1,24 @@
++package elements;
++
++import primitives.Color;
++import primitives.Point3D;
++import primitives.Vector;
++
++public class DirectionalLight extends Light implements LightSource {
++    private Vector _direction;
++
++    public DirectionalLight(Color _intensity, Vector _direction) {
++        super(_intensity);
++        this._direction = _direction;
++    }
++
++    @Override
++    public Color getIntensity(Point3D p) {
++        return _intensity;
++    }
++
++    @Override
++    public Vector getL(Point3D p) {
++        return _direction;
++    }
++}
+Index: src/elements/PointLight.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/elements/PointLight.java	(date 0)
++++ src/elements/PointLight.java	(date 0)
+@@ -0,0 +1,30 @@
++package elements;
++
++import primitives.Color;
++import primitives.Point3D;
++import primitives.Vector;
++
++public class PointLight extends Light implements LightSource {
++    protected Point3D _position;
++    protected double _kC, _kL, _kQ;
++
++    public PointLight(Color _intensity, Point3D _position, double _kC, double _kL, double _kQ) {
++        super(_intensity);
++        this._position = _position;
++        this._kC = _kC;
++        this._kL = _kL;
++        this._kQ = _kQ;
++    }
++
++    @Override
++    public Color getIntensity(Point3D p) {
++        double d = p.distance(_position);
++        double ds = p.distanceSquared(_position);
++        return _intensity.reduce(_kC+_kL*d+_kQ*ds);
++    }
++
++    @Override
++    public Vector getL(Point3D p) {
++        return p.subtract(_position);
++    }
++}

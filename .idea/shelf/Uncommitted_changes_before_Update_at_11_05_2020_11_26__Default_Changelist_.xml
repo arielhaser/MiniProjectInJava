@@ -1,0 +1,19 @@
+<changelist name="Uncommitted_changes_before_Update_at_11_05_2020_11_26_[Default_Changelist]" date="1589185560986" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_05_2020_11_26_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 11/05/2020 11:26 [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/Mini_Projct/elements/AmbientLight.class" />
+    <option name="AFTER_PATH" value="out/production/Mini_Projct/elements/AmbientLight.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_05_2020_11_26_[Default_Changelist]/AmbientLight.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/Mini_Projct/scene/Scene.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/Mini_Projct/geometries/Sphere.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+</changelist>

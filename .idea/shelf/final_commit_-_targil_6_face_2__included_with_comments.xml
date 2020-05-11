@@ -1,0 +1,14 @@
+<changelist name="final_commit_-_targil_6_face_2,_included_with_comments" date="1589185605825" recycled="false">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/final_commit_-_targil_6_face_2,_included_with_comments/shelved.patch" />
+  <option name="DESCRIPTION" value="final commit - targil 6 face 2, included with comments" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/Mini_Projct/geometries/Sphere.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/Mini_Projct/scene/Scene.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+</changelist>

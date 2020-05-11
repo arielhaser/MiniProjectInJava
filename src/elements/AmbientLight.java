@@ -9,10 +9,10 @@ public class AmbientLight extends Light {
 
     /**
      * the Ambient Light constructor using the constructor of the class Light
-     * @param _intenstity intensity filling lighting
+     * @param _intenstity intensity filling lighting - done.
      */
-    public AmbientLight(Color _intenstity) {
-        super(_intenstity);
+    public AmbientLight(Color _intenstity, double kA) {
+        super(_intenstity.scale(kA));
     }
 
 

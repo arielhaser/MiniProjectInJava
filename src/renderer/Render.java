@@ -10,6 +10,8 @@ import geometries.Intersectable.GeoPoint;
 //import java.awt.Color;
 import java.util.List;
 
+import static java.lang.Math.max;
+
 /**
  * A class for rendering image by the scene with image writer element
  * to determine the properties of the image
@@ -89,11 +91,13 @@ public class Render {
 
     private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
         Vector r = (n.scale((l.dotProduct(n))*-2)).add(l);
-        return lightIntensity.scale(ks*(Math.pow((v.scale(-1)).dotProduct(r), nShininess)));
+        double factor = ks*(Math.pow(max((-1)*v.dotProduct(r),0), nShininess));
+        return lightIntensity.scale(factor);
     }
 
     private Color calcDiffusive(double kd, Vector l, Vector n, Color lightIntensity) {
-        return lightIntensity.scale(kd*Math.abs(l.dotProduct(n)));
+        double factor = kd*Math.abs(l.dotProduct(n));
+        return lightIntensity.scale(factor);
     }
 
     /**

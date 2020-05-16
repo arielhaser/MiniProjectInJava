@@ -8,14 +8,35 @@ import java.util.List;
  * Define a shape of Triangle, kind of Polygon - flat object
  */
 public class Triangle extends Polygon {
+    /**
+     * Triangle constructor
+     * @param x Point x
+     * @param y Point y
+     * @param z Point z
+     */
     public Triangle(Point3D x, Point3D y, Point3D z) {
         super(x, y, z);
     }
 
+    /**
+     * Triangle constructor with the emission color of the object
+     * @param _emission color of the triangle
+     * @param x Point x
+     * @param y Point y
+     * @param z Point z
+     */
     public Triangle(Color _emission, Point3D x, Point3D y, Point3D z) {
         super(_emission, x, y, z);
     }
 
+    /**
+     * Triangle constructor with the emission color of the object and his material
+     * @param _material material of the triangle
+     * @param _emission color of the triangle
+     * @param x Point x
+     * @param y Point y
+     * @param z Point z
+     */
     public Triangle(Color _emission, Material _material, Point3D x, Point3D y, Point3D z) {
         super(_emission, _material, x, y, z);
     }
@@ -31,7 +52,7 @@ public class Triangle extends Polygon {
     /**
      * this function allows to find the intersections between the ray and the triangle
      * @param ray: the ray
-     * @return a list : result => if null: there isn't intersection and if not null,
+     * @return a list of GeoPoint: result => if null: there isn't intersection and if not null,
      *      *         it includes all intersections
      */
     @Override

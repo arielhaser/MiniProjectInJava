@@ -25,7 +25,7 @@ public class Sphere extends RadialGeometry {
 
     /**
      * constructor of Sphere
-     * @param _emission = color of the object
+     * @param _emission = color of the Sphere
      * @param _radius = radius of Sphere
      * @param _center = the point of the center of the Sphere
      */
@@ -34,6 +34,13 @@ public class Sphere extends RadialGeometry {
         this._emission = _emission;
     }
 
+    /**
+     * Sphere constructor
+     * @param _emission color of the Sphere
+     * @param _material the material of the Sphere
+     * @param _radius radius of Sphere
+     * @param _center the point of the center of the Sphere
+     */
     public Sphere(Color _emission, Material _material, double _radius, Point3D _center) {
         this(_emission, _radius, _center);
         this._material = _material;
@@ -65,7 +72,7 @@ public class Sphere extends RadialGeometry {
     /**
      *  this function allows to find the intersections between the ray and the sphere
      * @param ray: the ray
-     * @return a list : result => if null: there isn't intersection and if not null,
+     * @return a list of GeoPoint: result => if null: there isn't intersection and if not null,
      *         it includes all intersections
      */
     @Override

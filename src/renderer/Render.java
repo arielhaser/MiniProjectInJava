@@ -51,7 +51,7 @@ public class Render {
                 ray = camera.constructRayThroughPixel(nX, nY, col, row, distance, width, height);
                 List<GeoPoint> intersectionPoints = geometries.findIntersections(ray);
                 if (intersectionPoints == null){
-                    _imageWriter.writePixel(col, row, background);
+                    _imageWriter.writePixel(col, row, background); // the pixel with the background color at this point
                 }
                 else{
                     GeoPoint closestPoint = getClosestPoint(intersectionPoints);
@@ -64,7 +64,7 @@ public class Render {
     }
 
     /**
-     * Calculate the exact color which the pixel should be draw
+     * Calculate the exact color intensity which the pixel should be draw
      * @param geo = the nearest point which insert the objects' by the ray
      * @return = the color of the pixel
      */
@@ -89,12 +89,30 @@ public class Render {
         return color.getColor();
     }
 
+    /**
+     *
+     * @param ks specular component coefficient
+     * @param l the vector direction l from light to point
+     * @param n the vector normal at the point
+     * @param v direction from point of view to point
+     * @param nShininess shininess level
+     * @param lightIntensity light intensity at the point
+     * @return specular component light effect at the point
+     */
     private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
         Vector r = (n.scale((l.dotProduct(n))*-2)).add(l);
         double factor = ks*(Math.pow(max((-1)*v.dotProduct(r),0), nShininess));
         return lightIntensity.scale(factor);
     }
 
+    /**
+     * Calculate Diffusive component of light reflection.
+     * @param kd the coefficient kD
+     * @param l the vector direction l from light to point
+     * @param n the vector normal at the point
+     * @param lightIntensity light intensity at the point
+     * @return diffusive component of light reflection
+     */
     private Color calcDiffusive(double kd, Vector l, Vector n, Color lightIntensity) {
         double factor = kd*Math.abs(l.dotProduct(n));
         return lightIntensity.scale(factor);
@@ -114,7 +132,7 @@ public class Render {
     /**
      * Find the closest point in the points on objects' which inserted
      * by the ray
-     * @param intersectionPoints = list of the interaction points
+     * @param intersectionPoints = list of all the interaction points
      * @return the closet 3D point
      */
     private GeoPoint getClosestPoint(List<GeoPoint> intersectionPoints)

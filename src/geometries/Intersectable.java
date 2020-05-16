@@ -1,7 +1,6 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
+import primitives.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,12 +10,20 @@ import java.util.Objects;
  */
 public interface Intersectable {
 
-    List<GeoPoint> findIntersections(Ray ray);
+    List<GeoPoint> findIntersections(Ray ray); // a list of GeoPoint
 
+    /**
+     * class static representing GeoPoint: Point of geometry
+     */
     public static class GeoPoint {
         public Geometry geometry;
         public Point3D point;
 
+        /**
+         * the GeoPoint constructor
+         * @param geometry a geometry
+         * @param point a point of the geometry
+         */
         public GeoPoint(Geometry geometry, Point3D point) {
             this.geometry = geometry;
             this.point = point;

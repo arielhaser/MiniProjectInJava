@@ -86,7 +86,7 @@ public class Plane extends Geometry {
     /**
      * this function allows to find the intersections between the ray and the plane
      * @param ray: the ray
-     * @return a list : result => if null: there isn't intersection and if not null,
+     * @return a list of GeoPoint: result => if null: there isn't intersection and if not null,
      *         it includes all intersections
      */
     @Override

@@ -1,6 +1,6 @@
 package elements;
 
-import primitives.Color;
+import primitives.*;
 
 /**
  * abstract class representing the lights

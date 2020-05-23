@@ -11,6 +11,7 @@ import geometries.Intersectable.GeoPoint;
 import java.util.List;
 
 import static java.lang.Math.max;
+import static primitives.Util.alignZero;
 
 /**
  * A class for rendering image by the scene with image writer element
@@ -19,6 +20,7 @@ import static java.lang.Math.max;
 public class Render {
     Scene _scene;
     ImageWriter _imageWriter;
+    private static final double DELTA = 0.1;
 
     /**
      * Render's constructor
@@ -80,7 +82,7 @@ public class Render {
         double ks = material.get_kS();
         for (LightSource lightSource : _scene.get_lights()) {
             Vector l = lightSource.getL(geo.point);
-            if (sign(n.dotProduct(l)) == sign(n.dotProduct(v))) {
+            if ((sign(n.dotProduct(l)) == sign(n.dotProduct(v))) && unshaded(lightSource, l, n, geo)) {
                 Color lightIntensity = lightSource.getIntensity(geo.point);
                 color = color.add(calcDiffusive(kd, l, n, lightIntensity),
                         calcSpecular(ks, l, n, v, nShininess, lightIntensity));
@@ -155,6 +157,21 @@ public class Render {
      */
     public void writeToImage() {
         _imageWriter.writeToImage();
+    }
+
+    private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint gp){
+        Vector lightDirection = l.scale(-1); // from point to light source
+        Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : - DELTA);
+        Point3D point = gp.point.add(delta);
+        Ray lightRay = new Ray(point, lightDirection);
+        List<GeoPoint> intersections = _scene.getGeometries().findIntersections(lightRay);
+        if (intersections == null) return true;
+        double lightDistance = light.getDistance(gp.point);
+        for (GeoPoint geo : intersections) {
+            if (alignZero(geo.point.distance(gp.point) - lightDistance) <= 0)
+                return false;
+        }
+        return true;
     }
 
     /**

@@ -6,8 +6,6 @@ import org.junit.Test;
 import renderer.ImageWriter;
 import primitives.*;
 
-import java.awt.Color;
-
 /**
  * Test rendering basic image
  */

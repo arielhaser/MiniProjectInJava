@@ -1,6 +1,8 @@
 package primitives;
 
 public class Material {
+    double _kT;
+    double _kR;
     double _kD;
     double _kS;
     int _nShininess;
@@ -12,6 +14,16 @@ public class Material {
      * @param _nShininess the shininess
      */
     public Material(double _kD, double _kS, int _nShininess) {
+        this._kR = 0;
+        this._kT = 0;
+        this._kD = _kD;
+        this._kS = _kS;
+        this._nShininess = _nShininess;
+    }
+
+    public Material(double _kD, double _kS, int _nShininess, double _kT, double _kR) {
+        this._kT = _kT;
+        this._kR = _kR;
         this._kD = _kD;
         this._kS = _kS;
         this._nShininess = _nShininess;
@@ -39,5 +51,13 @@ public class Material {
      */
     public int get_nShininess() {
         return _nShininess;
+    }
+
+    public double get_kT() {
+        return _kT;
+    }
+
+    public double get_kR() {
+        return _kR;
     }
 }

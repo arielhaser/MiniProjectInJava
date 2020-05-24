@@ -16,6 +16,8 @@ public class Color {
     private double _r = 0.0, _g = 0.0, _b = 0.0;
 
     public final static Color BLACK = new Color();
+    public final static Color WHITE = new Color(java.awt.Color.WHITE);
+    public final static Color YELLOW = new Color(java.awt.Color.YELLOW);
 
     /**
      * Default constructor - to generate Black Color (privately)

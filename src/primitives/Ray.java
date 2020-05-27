@@ -8,18 +8,24 @@ import static primitives.Util.*;
 public class Ray  {
     private Point3D _p00;
     private Vector _direction;
-    private static final double DELTA = 0.1;
+    private static final double DELTA = 0.1; // an integer allowing to slightly shift the beginning of the ray
 
     /**
      * constructor of Ray
      * @param _p00 = start 3D point of the ray
-     * @param _direction = vector normal with contain a direction
+     * @param _direction = vector direction of the ray
      */
     public Ray(Point3D _p00, Vector _direction) {
         this._p00 = _p00;
         this._direction = _direction.normalize();
     }
 
+    /**
+     * constructor of ray with Point, direction and normal vector
+     * @param _p00 start 3D Point of the ray
+     * @param _direction vector direction of the ray
+     * @param normal vector normal to the ray
+     */
     public Ray(Point3D _p00, Vector _direction, Vector normal){
         Vector delta = normal.scale(normal.dotProduct(_direction) > 0 ? DELTA : - DELTA);
         this._p00 = _p00.add(delta);

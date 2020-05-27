@@ -8,7 +8,7 @@ public class Material {
     int _nShininess;
 
     /**
-     * the material constructor with the attenuation coefficients and the shininess
+     * the material constructor with the attenuation coefficients and the shininess initializing kR and kT to 0
      * @param _kD attenuation coefficient kD
      * @param _kS attenuation coefficient ks
      * @param _nShininess the shininess
@@ -21,6 +21,14 @@ public class Material {
         this._nShininess = _nShininess;
     }
 
+    /**
+     * the material constructor with the attenuation coefficients, the shininess , kR: reflection and kT: refraction
+     * @param _kD attenuation coefficient kD
+     * @param _kS attenuation coefficient ks
+     * @param _nShininess the shininess
+     * @param _kT reflection coefficient
+     * @param _kR refraction coefficient
+     */
     public Material(double _kD, double _kS, int _nShininess, double _kT, double _kR) {
         this._kT = _kT;
         this._kR = _kR;
@@ -53,10 +61,18 @@ public class Material {
         return _nShininess;
     }
 
+    /**
+     * getter for kT: refraction coefficient
+     * @return kT: the refraction coefficient
+     */
     public double get_kT() {
         return _kT;
     }
 
+    /**
+     * getter for kR: the reflection coefficient
+     * @return kR: the reflection coefficient
+     */
     public double get_kR() {
         return _kR;
     }

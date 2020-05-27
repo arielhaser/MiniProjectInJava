@@ -28,9 +28,9 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * getter for the intensity at the point
-     * @param p the point
-     * @return the intensity at the point
+     * function to receive the intensity of the color at this point
+     * @param p the point of the geometry
+     * @return the color intensity at the point
      */
     @Override
     public Color getIntensity(Point3D p) {
@@ -49,6 +49,11 @@ public class PointLight extends Light implements LightSource {
         return p.subtract(_position).normalized();
     }
 
+    /**
+     * function to receive the distance between the light source and the point
+     * @param point the point of the geometry
+     * @return the distance between the light source and the point
+     */
     @Override
     public double getDistance(Point3D point) {
         return _position.distance(point);

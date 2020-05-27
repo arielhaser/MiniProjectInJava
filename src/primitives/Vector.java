@@ -165,6 +165,11 @@ public class Vector {
                 _head.get_z().get() * other._head.get_z().get() <= 0;
     }
 
+    /**
+     * function allows to check if two vectors are equal or not
+     * @param other the other vector
+     * @return True if same vector and False if different vectors
+     */
     public boolean isSameVector(Vector other){
         boolean flag_x = false;
         boolean flag_y = false;

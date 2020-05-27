@@ -53,7 +53,7 @@ public class Triangle extends Polygon {
      * this function allows to find the intersections between the ray and the triangle
      * @param ray: the ray
      * @return a list of GeoPoint: result => if null: there isn't intersection and if not null,
-     *      *         it includes all intersections
+     *         it includes all intersections
      */
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {

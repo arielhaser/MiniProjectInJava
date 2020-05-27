@@ -20,8 +20,8 @@ import static primitives.Util.alignZero;
 public class Render {
     Scene _scene;
     ImageWriter _imageWriter;
-    private static final int MAX_CALC_COLOR_LEVEL = 10;
-    private static final double MIN_CALC_COLOR_K = 0.001;
+    private static final int MAX_CALC_COLOR_LEVEL = 10; // max level of the recursion for the reflection and refraction
+    private static final double MIN_CALC_COLOR_K = 0.001; // minimum for the K
 
     /**
      * Render's constructor
@@ -63,14 +63,21 @@ public class Render {
 
     }
 
+    /**
+     * the calColor function returning the calColor function with the k =1 and the MAX_CALC_COLOR_LEVEL
+     * @param geopoint the nearest point which insert the objects' by the ray
+     * @param inRay the ray arriving to the point
+     * @return the calColor function initializing with the k =1 and the MAX_CALC_COLOR_LEVEL
+     */
     private Color calcColor(GeoPoint geopoint, Ray inRay) {
         return calcColor(geopoint, inRay, MAX_CALC_COLOR_LEVEL, 1.0).add(
                 _scene.getAmbientLight().get_intensity());
     }
 
     /**
-     * Calculate the exact color intensity which the pixel should be draw
+     * Calculate the exact color intensity which the pixel should be draw using all the intermediate functions
      * @param geo = the nearest point which insert the objects' by the ray
+     * @param inRay = the ray arriving to the point
      * @return = the color of the pixel
      */
     private Color calcColor(GeoPoint geo, Ray inRay, int level, double k)
@@ -95,9 +102,10 @@ public class Render {
             }
         }
 
-        if (level == 1) return Color.BLACK;
+        if (level == 1) return Color.BLACK; //condition to stop the recursion
         double kr = geo.geometry.get_material().get_kR(), kkr = k * kr;
-        if (kkr > MIN_CALC_COLOR_K) {
+        // the other condition to stop the recursion
+        if (kkr > MIN_CALC_COLOR_K)  {
             Ray reflectedRay = constructReflectedRay(n, geo.point, inRay);
             GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
             if (reflectedPoint != null)
@@ -105,6 +113,7 @@ public class Render {
                         level - 1, kkr).scale(kr));
         }
         double kt = geo.geometry.get_material().get_kT(), kkt = k * kt;
+        //condition to stop the recursion
         if (kkt > MIN_CALC_COLOR_K) {
             Ray refractedRay = constructRefractedRay(n, geo.point, inRay);
             GeoPoint refractedPoint = findClosestIntersection(refractedRay);
@@ -172,6 +181,18 @@ public class Render {
         _imageWriter.writeToImage();
     }
 
+    /**
+     * function allowing to check the presence of shade or not.
+     * If nothing separates the geometric shape and the light source, then it is unshaded,
+     * that is to say that it receives this light source normally.
+     * And if the light source does not reach the geometric shape at a specific location,
+     * due to the presence of something else  between twice:  this location will be shaded.
+     * @param light the light Source
+     * @param l vector from the source light to the geometry
+     * @param n the vector normal
+     * @param gp the GeoPoint located on the geometry
+     * @return True if it's unshaded and False if there is shadow
+     */
     private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint gp){
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(gp.point, lightDirection, n);
@@ -179,6 +200,7 @@ public class Render {
         if (intersections == null) return true;
         double lightDistance = light.getDistance(gp.point);
         for (GeoPoint geo : intersections) {
+            // verify if the intersection isn't after the light source and if the geometry isn't opaque
             if (alignZero(geo.point.distance(gp.point) - lightDistance) <= 0
             && gp.geometry.get_material().get_kT() == 0)
                 return false;
@@ -186,13 +208,23 @@ public class Render {
         return true;
     }
 
+    /**
+     * the same function as unshaded but the light passes more or less through an object
+     * which is not opaque according to a coefficient of transparency
+     * @param light the light source
+     * @param l vector from the source light to the geometry
+     * @param n the vector normal
+     * @param geopoint the GeoPoint located on the geometry
+     * @return ktr: the coefficient of transparency which starts at 1
+     * and which decreases with each meeting of a new intersection
+     */
     private double transparency(LightSource light, Vector l, Vector n, GeoPoint geopoint){
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(geopoint.point, lightDirection, n);
         List<GeoPoint> intersections = _scene.getGeometries().findIntersections(lightRay);
         if (intersections == null) return 1.0;
         double lightDistance = light.getDistance(geopoint.point);
-        double ktr = 1.0;
+        double ktr = 1.0; //
         for (GeoPoint geo : intersections) {
             if (alignZero(geo.point.distance(geopoint.point) - lightDistance) <= 0){
                 ktr *= geo.geometry.get_material().get_kT();
@@ -220,6 +252,11 @@ public class Render {
         }
     }
 
+    /**
+     * function allowing to find the closest intersection
+     * @param ray the ray with which we will look for the intersection points
+     * @return the closest intersection GeoPoint
+     */
     private GeoPoint findClosestIntersection(Ray ray){
 
         Intersectable geometries = _scene.getGeometries();
@@ -240,12 +277,27 @@ public class Render {
 
     }
 
+    /**
+     * function allowing to construct the reflected ray from the point
+     * @param n the normal vector of the geometry
+     * @param point the origin point of the reflected ray
+     * @param ray the ray which arrives at the point and which will reflected
+     * @return the reflected ray
+     */
     public Ray constructReflectedRay(Vector n, Point3D point, Ray ray){
         Vector v = ray.get_direction();
         Vector r = (n.scale((v.dotProduct(n))*-2)).add(v);
         return new Ray(point, r, n);
     }
 
+    /**
+     * function allowing to construct the refracted ray from the point: in our project he is in the same direction
+     * of he ray which arrives at the point
+     * @param n the normal vector of the geometry
+     * @param point the origin point of the refracted ray
+     * @param ray the ray which arrives at the point and which will refracted
+     * @return the refracted ray
+     */
     public Ray constructRefractedRay(Vector n, Point3D point, Ray ray){
         return new Ray(point, ray.get_direction(), n);
     }

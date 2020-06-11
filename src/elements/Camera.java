@@ -4,6 +4,11 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import static java.lang.Math.*;
 import static primitives.Util.isZero;
 
 /**
@@ -12,6 +17,8 @@ import static primitives.Util.isZero;
 public class Camera {
     private Point3D _p0;
     private Vector _vUp, _vTo, _vRight;
+    private boolean IMPROVE_PIXEL = true;
+    private int NUM_OF_RAYS = 50;
 
     /**
      * the constructor for Camera: his position and his orientation
@@ -84,7 +91,40 @@ public class Camera {
         if (!isZero(yI)) pIJ = pIJ.add(_vUp.scale(-yI));
 
         return new Ray(_p0, pIJ.subtract(_p0));
-
     }
 
+    public double random(double rangeMin, double rangeMax){
+        Random r = new Random();
+        return rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+    }
+
+    public List<Ray> constructRaysThroughPixel(int nX, int nY, int col, int row,
+                                               double screenDistance, double screenWidth, double screenHeight){
+        Ray center_ray = constructRayThroughPixel (nX, nY, col, row, screenDistance, screenWidth, screenHeight);
+        List<Ray> beam = new ArrayList<>();
+        beam.add(center_ray);
+        if (!IMPROVE_PIXEL) return beam;
+        Point3D p0 = center_ray.get_p00();
+        Vector v = center_ray.get_direction();
+        Vector vx = _vRight;
+        Vector vy = _vUp;
+        double r = min(screenWidth/nX, screenHeight/nY)/2;
+        for (int i=0; i<NUM_OF_RAYS-1; i++){
+            // create random polar system coordinates of a point in circle of radius r
+            double cosTeta = random(-1,1);
+            double sinTeta = sqrt(1 - cosTeta*cosTeta);
+            double d = random (-r,r);
+            // Convert polar coordinates to Cartesian ones
+            double x = d*cosTeta;
+            double y = d*sinTeta;
+            // pC - center of the circle
+            // p0 - start of central ray, v - its direction, distance - from p0 to pC
+            Point3D pC = p0.add(v.scale(screenDistance));
+            Point3D point = pC;
+            if (!isZero(x)) point = point.add(vx.scale(x));
+            if (!isZero(y)) point = point.add(vy.scale(y));
+            beam.add(new Ray(p0, point.subtract(p0))); // normalized inside Ray ctor
+        }
+        return beam;
+    }
 }

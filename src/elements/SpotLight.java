@@ -18,6 +18,11 @@ public class SpotLight extends PointLight {
         this._direction = _direction.normalized();
     }
 
+    public SpotLight(Color _intensity, Point3D _position, Vector _direction, double _kC, double _kL, double _kQ, double _radius) {
+        super(_intensity, _position, _kC, _kL, _kQ, _radius);
+        this._direction = _direction.normalized();
+    }
+
     /**
      * function to receive the intensity of the color at this point
      * @param p the point of the geometry

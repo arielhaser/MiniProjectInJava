@@ -27,7 +27,7 @@ public class Render {
     private int _threads = 1;
     private final int SPARE_THREADS = 2;
     private boolean _print = true;
-    private boolean SOFT_SHADOW = true;
+    private boolean SOFT_SHADOW = false;
     private int NUM_OF_RAYS = 50;
 
 
@@ -494,4 +494,13 @@ public class Render {
 		_print = true;
 		return this;
 	}
+
+    public void set_SOFT_SHADOW(boolean SOFT_SHADOW) {
+        this.SOFT_SHADOW = SOFT_SHADOW;
+    }
+
+    public void set_NUM_OF_RAYS(int NUM_OF_RAYS) {
+        this.NUM_OF_RAYS = NUM_OF_RAYS;
+    }
+
 }

@@ -17,7 +17,7 @@ import static primitives.Util.isZero;
 public class Camera {
     private Point3D _p0;
     private Vector _vUp, _vTo, _vRight;
-    private boolean IMPROVE_PIXEL = true;
+    private boolean IMPROVE_PIXEL = false;
     private int NUM_OF_RAYS = 50;
 
     /**
@@ -126,5 +126,13 @@ public class Camera {
             beam.add(new Ray(p0, point.subtract(p0))); // normalized inside Ray ctor
         }
         return beam;
+    }
+
+    public void set_IMPROVE_PIXEL(boolean IMPROVE_PIXEL) {
+        this.IMPROVE_PIXEL = IMPROVE_PIXEL;
+    }
+
+    public void set_NUM_OF_RAYS(int NUM_OF_RAYS) {
+        this.NUM_OF_RAYS = NUM_OF_RAYS;
     }
 }

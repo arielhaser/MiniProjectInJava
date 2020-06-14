@@ -170,6 +170,9 @@ public class ShadowTests {
 		ImageWriter imageWriter = new ImageWriter("trianglesSphere", 200, 200, 600, 600);
 		Render render = new Render(imageWriter, scene).setMultithreading(3).setDebugPrint();
 
+		scene.getCamera().set_IMPROVE_PIXEL(true);
+		render.set_SOFT_SHADOW(true);
+
 		render.renderImage();
 		render.writeToImage();
 	}

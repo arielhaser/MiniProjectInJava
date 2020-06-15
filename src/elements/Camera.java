@@ -93,11 +93,28 @@ public class Camera {
         return new Ray(_p0, pIJ.subtract(_p0));
     }
 
+    /**
+     * the function which will allow us to choose the placement of the rays at random in the virtual circle
+     * @param rangeMin the minimum limit
+     * @param rangeMax the maximum limit
+     * @return the random result in the domain
+     */
     public double random(double rangeMin, double rangeMax){
         Random r = new Random();
         return rangeMin + (rangeMax - rangeMin) * r.nextDouble();
     }
 
+    /**
+     *
+     * @param nX the number of pixel in a row of the view plane
+     * @param nY the number of pixel in a column of the view plane
+     * @param col the column index of the pixel
+     * @param row the row index of the pixel
+     * @param screenDistance the distance between the view plane and the camera(_p0)
+     * @param screenWidth the width of the view plane
+     * @param screenHeight the height of the view plane
+     * @return the beam: the list that contains all the rays from the camera
+     */
     public List<Ray> constructRaysThroughPixel(int nX, int nY, int col, int row,
                                                double screenDistance, double screenWidth, double screenHeight){
         Ray center_ray = constructRayThroughPixel (nX, nY, col, row, screenDistance, screenWidth, screenHeight);
@@ -123,15 +140,23 @@ public class Camera {
             Point3D point = pC;
             if (!isZero(x)) point = point.add(vx.scale(x));
             if (!isZero(y)) point = point.add(vy.scale(y));
-            beam.add(new Ray(p0, point.subtract(p0))); // normalized inside Ray ctor
+            beam.add(new Ray(p0, point.subtract(p0))); // normalized inside Ray constructor
         }
         return beam;
     }
 
+    /**
+     * the setter of Improve Pixel
+     * @param IMPROVE_PIXEL the boolean
+     */
     public void set_IMPROVE_PIXEL(boolean IMPROVE_PIXEL) {
         this.IMPROVE_PIXEL = IMPROVE_PIXEL;
     }
 
+    /**
+     * the setter of number of rays
+     * @param NUM_OF_RAYS the integer: number of rays
+     */
     public void set_NUM_OF_RAYS(int NUM_OF_RAYS) {
         this.NUM_OF_RAYS = NUM_OF_RAYS;
     }

@@ -188,7 +188,8 @@ public class Render {
 
     /**
      * the same function as unshaded but the light passes more or less through an object
-     * which is not opaque according to a coefficient of transparency
+     * which is not opaque according to a coefficient of transparency.
+     * it works by calculating the average between the sum of ktr with the number of rays present in the beam
      * @param light the light source
      * @param l vector from the source light to the geometry
      * @param n the vector normal
@@ -217,9 +218,17 @@ public class Render {
             } else
                 sum_ktr += 1;
         }
-        return sum_ktr/rays.size();
+        return sum_ktr/rays.size();// the average
     }
 
+    /**
+     * the function allows to create the beam of rays from the geometry to the source lights
+     * @param light the light source
+     * @param l vector from the source light to the geometry
+     * @param n the vector normal
+     * @param geopoint the GeoPoint located on the geometry
+     * @return the beam of rays
+     */
     private List<Ray> constructRaysToLight(LightSource light, Vector l, Vector n, GeoPoint geopoint){
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(geopoint.point, lightDirection, n);
@@ -250,7 +259,12 @@ public class Render {
         return beam;
     }
 
-
+    /**
+     * the function which will allow us to choose the placement of the rays at random in the virtual circle
+     * @param rangeMin the minimum limit
+     * @param rangeMax the maximum limit
+     * @return the random result in the domain
+     */
     public double random(double rangeMin, double rangeMax){
         Random r = new Random();
         return rangeMin + (rangeMax - rangeMin) * r.nextDouble();
@@ -495,10 +509,18 @@ public class Render {
 		return this;
 	}
 
+    /**
+     * the setter of Soft shadow
+     * @param SOFT_SHADOW the boolean
+     */
     public void set_SOFT_SHADOW(boolean SOFT_SHADOW) {
         this.SOFT_SHADOW = SOFT_SHADOW;
     }
 
+    /**
+     * the setter of number of rays
+     * @param NUM_OF_RAYS the integer: number of rays
+     */
     public void set_NUM_OF_RAYS(int NUM_OF_RAYS) {
         this.NUM_OF_RAYS = NUM_OF_RAYS;
     }

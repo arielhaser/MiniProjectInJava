@@ -29,6 +29,15 @@ public class PointLight extends Light implements LightSource {
         this._radius = 0;
     }
 
+    /**
+     * the Point light constructor with his intensity, his position, the attenuation coefficients and the radius.
+     * @param _intensity intensity of the light
+     * @param _position position of the light
+     * @param _kC attenuation coefficient kC
+     * @param _kL attenuation coefficient kL
+     * @param _kQ attenuation coefficient kQ
+     * @param _radius the radius of the light
+     */
     public PointLight(Color _intensity, Point3D _position, double _kC, double _kL, double _kQ, double _radius) {
         super(_intensity);
         this._position = _position;
@@ -70,6 +79,10 @@ public class PointLight extends Light implements LightSource {
         return _position.distance(point);
     }
 
+    /**
+     * function to receive the receive the radius of the light
+     * @return the radius of the light
+     */
     @Override
     public double getRadius() {
         return _radius;

@@ -29,5 +29,9 @@ public interface LightSource {
      */
     double getDistance(Point3D point);
 
+    /**
+     * function to receive the radius of the source light
+     * @return the radius of the source light
+     */
     public double getRadius();
 }

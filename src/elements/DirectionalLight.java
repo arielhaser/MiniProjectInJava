@@ -50,6 +50,10 @@ public class DirectionalLight extends Light implements LightSource {
         return Double.POSITIVE_INFINITY;
     }
 
+    /**
+     * function to receive teh radius of the light , here it is always zero
+     * @return radius == 0
+     */
     @Override
     public double getRadius() {
         return 0;

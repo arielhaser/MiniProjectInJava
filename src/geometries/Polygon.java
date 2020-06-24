@@ -5,6 +5,8 @@ import java.util.List;
 import primitives.*;
 import primitives.Color;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 import static primitives.Util.*;
 
 /**
@@ -22,6 +24,7 @@ public class Polygon extends Geometry {
      * Associated plane in which the polygon lays
      */
     protected Plane _plane;
+    private Box _box;
 
     /**
      * Polygon constructor based on vertices list. The list must be ordered by edge
@@ -81,6 +84,7 @@ public class Polygon extends Geometry {
             if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
                 throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
         }
+        this._box = buildBox();
     }
 
     /**
@@ -91,11 +95,13 @@ public class Polygon extends Geometry {
     public Polygon(Color _emission, Point3D... vertices) {
         this(vertices);
         this._emission = _emission;
+        this._box = buildBox();
     }
 
     public Polygon(Color _emission, Material _material, Point3D... _vertices) {
         this(_emission, _vertices);
         this._material =  _material;
+        this._box = buildBox();
     }
 
     @Override
@@ -106,5 +112,31 @@ public class Polygon extends Geometry {
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
         return null;
+    }
+
+    @Override
+    public Box buildBox() {
+        if (_box != null) return _box;
+        Point3D min, max;
+        double minX, minY, minZ, maxX, maxY, maxZ;
+        minX = minY = minZ = Double.POSITIVE_INFINITY;
+        maxX = maxY = maxZ = Double.NEGATIVE_INFINITY;
+        for(Point3D vertice : _vertices) {
+            minX = min(minX, vertice.get_x().get());
+            maxX = max(maxX, vertice.get_x().get());
+            minY = min(minY, vertice.get_y().get());
+            maxY = max(maxY, vertice.get_y().get());
+            minZ = min(minZ, vertice.get_z().get());
+            maxZ = max(maxZ, vertice.get_z().get());
+        }
+        min = new Point3D(minX, minY, minZ);
+        max = new Point3D(maxX, maxY, maxZ);
+        _box = new Box(min, max);
+        return _box;
+    }
+
+    @Override
+    public Box get_box() {
+        return _box;
     }
 }

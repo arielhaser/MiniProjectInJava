@@ -68,4 +68,14 @@ public class Tube extends RadialGeometry {
     public List<GeoPoint> findIntersections(Ray ray) {
         return null;
     }
+
+    @Override
+    public Box buildBox() {
+        return null;
+    }
+
+    @Override
+    public Box get_box() {
+        return null;
+    }
 }

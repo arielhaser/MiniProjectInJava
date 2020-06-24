@@ -16,6 +16,7 @@ import static primitives.Util.isZero;
 public class Plane extends Geometry {
     protected Point3D _p;
     protected Vector _normal;
+    private Box _box;
 
     /**
      * constructor of Plane
@@ -25,6 +26,7 @@ public class Plane extends Geometry {
     public Plane(Point3D _p, Vector _normal) {
         this._p = _p;
         this._normal = _normal;
+        this._box = buildBox();
     }
 
     /**
@@ -39,6 +41,7 @@ public class Plane extends Geometry {
         Vector v2 = z.subtract(x);
         Vector temp_vector = v1.crossProduct(v2);
         _normal = temp_vector.normalized();
+        this._box = buildBox();
     }
 
     /**
@@ -50,11 +53,13 @@ public class Plane extends Geometry {
     public Plane(Color _emission, Point3D _p, Vector _normal) {
         this(_p, _normal);
         this._emission = _emission;
+        this._box = buildBox();
     }
 
     public Plane(Color _emission, Material _material, Point3D _p, Vector _normal) {
         this(_emission, _p, _normal);
         this._material = _material;
+        this._box = buildBox();
     }
 
     public Point3D get_p() {
@@ -101,5 +106,34 @@ public class Plane extends Geometry {
         List<GeoPoint> result = new ArrayList<>();
         result.add(new GeoPoint(this, ray.getPoint(t)));
         return result;
+    }
+
+    @Override
+    public Box buildBox() {
+        if (_box != null) return _box;
+        Vector vx = new Vector(-_normal.get_head().get_y().get(), _normal.get_head().get_x().get(), 0);
+        Vector vy = vx.crossProduct(_normal);
+        double minX=-1000, minY=-1000, minZ=-1000, maxX=1000, maxY=1000, maxZ=1000;
+        if(vy.get_head().get_x().get() == 0){
+            minX = -1;
+            maxX = 1;
+        }
+        if(vy.get_head().get_y().get() == 0){
+            minY = -1;
+            maxY = 1;
+        }
+        if(vy.get_head().get_z().get() == 0){
+            minZ = -1;
+            maxZ = 1;
+        }
+        Point3D min = new Point3D(minX,minY,minZ);
+        Point3D max = new Point3D(maxX,maxY,maxZ);
+        _box = new Box(min, max);
+        return _box;
+    }
+
+    @Override
+    public Box get_box() {
+        return _box;
     }
 }

@@ -11,6 +11,8 @@ import java.util.Objects;
 public interface Intersectable {
 
     List<GeoPoint> findIntersections(Ray ray); // a list of GeoPoint
+    Box buildBox();
+    Box get_box();
 
     /**
      * class static representing GeoPoint: Point of geometry
@@ -38,6 +40,15 @@ public interface Intersectable {
                     point.equals(geoPoint.point);
         }
 
+    }
+
+    class Box {
+        Point3D _min, _max;
+
+        public Box(Point3D _min, Point3D _max) {
+            this._min = _min;
+            this._max = _max;
+        }
     }
 
 }

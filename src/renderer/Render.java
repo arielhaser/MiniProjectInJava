@@ -465,6 +465,11 @@ public class Render {
 		if (_print) System.out.printf("\r100%%\n");
 	}
 
+    /**
+     * the private function Calcolor using by the principal CalcColor function.
+     * @param rays the list of the ray
+     * @return the final Color
+     */
     private Color calcColor(List<Ray> rays) {
         Color sum_color = new Color(Color.BLACK);
         for (Ray ray : rays) {

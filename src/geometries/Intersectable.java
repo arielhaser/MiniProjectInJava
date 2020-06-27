@@ -42,9 +42,17 @@ public interface Intersectable {
 
     }
 
+    /**
+     * class for the box
+     */
     class Box {
         Point3D _min, _max;
 
+        /**
+         * constructor of the Box
+         * @param _min the point minimum of the box
+         * @param _max the point maximum of the box
+         */
         public Box(Point3D _min, Point3D _max) {
             this._min = _min;
             this._max = _max;

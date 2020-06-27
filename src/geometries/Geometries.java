@@ -27,7 +27,7 @@ public class Geometries implements Intersectable {
     }
 
     /**
-     * Geometries constructor that allow to add geometries
+     * Geometries constructor that allow to add geometries and the "box"
      * @param _geometries to add to the collection of geometries
      */
     public Geometries(List<Intersectable> _geometries) {
@@ -69,6 +69,10 @@ public class Geometries implements Intersectable {
         return result;
     }
 
+    /**
+     * function that allows us to build the box finding the min and the max Points.
+     * @return the box
+     */
     public Box buildBox() {
         if (_box != null) return _box;
         Point3D min, max;
@@ -90,10 +94,20 @@ public class Geometries implements Intersectable {
         return _box;
     }
 
+    /**
+     * getter of the box
+     * @return the box
+     */
     public Box get_box() {
         return _box;
     }
 
+    /**
+     * the function checks if there is intersection between the ray and the box
+     * @param box the box
+     * @param ray the ray to the scene
+     * @return True if there is intersection between the ray and the box
+     */
     private boolean isIntersected(Box box, Ray ray) {
         double tmin = Double.NEGATIVE_INFINITY, tmax = Double.POSITIVE_INFINITY;
         Point3D headVector = ray.get_direction().get_head();
@@ -148,6 +162,12 @@ public class Geometries implements Intersectable {
         }
     }
 
+    /**
+     * the function return the distance between boxes
+     * @param boxA one box
+     * @param boxB the other box
+     * @return the distance between the boxes A and B
+     */
     double boxesDistance(Box boxA, Box boxB){
         double minA=0, minB=0;
         if (!boxA._min.equals(boxB._min) && !boxA._min.equals(boxB._max))

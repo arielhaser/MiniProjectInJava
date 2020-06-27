@@ -52,7 +52,7 @@ public class Mini1Test {
                         1, 4E-5, 2E-7, 200));
 
         ImageWriter imageWriter = new ImageWriter("essai", 500, 500, 1200, 1200);
-        Render render = new Render(imageWriter, scene).setMultithreading(3).setDebugPrint();
+        Render render = new Render(imageWriter, scene).setMultithreading(40).setDebugPrint();
 
         scene.getCamera().set_IMPROVE_PIXEL(true);
         render.set_SOFT_SHADOW(true);

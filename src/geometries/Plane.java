@@ -43,7 +43,16 @@ public class Plane extends Geometry {
         _normal = temp_vector.normalized();
         this._box = buildBox();
     }
-
+    public Plane (Color _emission, Material _material,Point3D x, Point3D y, Point3D z)
+    {
+        this._emission = _emission;
+        this._material = _material;
+        _p = x;
+        Vector v1 = y.subtract(x);
+        Vector v2 = z.subtract(x);
+        Vector temp_vector = v1.crossProduct(v2);
+        _normal = temp_vector.normalized();
+    }
     /**
      * constructor of Plane
      * @param _emission = the color of object

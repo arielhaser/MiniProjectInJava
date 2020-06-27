@@ -119,6 +119,10 @@ public class Sphere extends RadialGeometry {
         return results;
     }
 
+    /**
+     * the function allows us to create the box around the sphere
+     * @return the box
+     */
     @Override
     public Box buildBox() {
         if (_box != null) return _box;

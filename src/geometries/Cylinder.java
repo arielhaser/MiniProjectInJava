@@ -33,11 +33,23 @@ public class Cylinder extends Tube {
         this._emission = _emission;
     }
 
+    /**
+     * constructor of cylinder with emission, material, radius, axisRay, height
+     * @param _emission the color of subject
+     * @param _material the material of the cylinder
+     * @param _radius the radius of the cylinder
+     * @param _axisRay ray of the axis of the Cylinder
+     * @param _height the height of the Cylinder
+     */
     public Cylinder(Color _emission, Material _material, double _radius, Ray _axisRay, double _height) {
         this(_emission, _radius, _axisRay, _height);
         this._material = _material;
     }
 
+    /**
+     * getter for the height of the cylinder
+     * @return the height of the cylinder
+     */
     public double get_height() {
         return _height;
     }

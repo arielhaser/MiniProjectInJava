@@ -139,6 +139,11 @@ public class Geometries implements Intersectable {
         return tmax >= tmin;
     }
 
+    /**
+     * The automatic Boundary Volume Hierarchy using the geometries objects to create the hierarchy,
+     * and the functions that we created regarding the boxes.
+     *
+     */
     public void autoBVHConstruction(){
         while(_geometries.size() > 2){
             Intersectable savedGeometryFirst=null, savedGeometrySecond=null;

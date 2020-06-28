@@ -32,7 +32,7 @@ public class Geometries implements Intersectable {
      */
     public Geometries(List<Intersectable> _geometries) {
         this._geometries = _geometries;
-        this._box = buildBox();
+        this._box = null;
     }
 
     /**
@@ -53,11 +53,10 @@ public class Geometries implements Intersectable {
      */
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
-        Box box = buildBox();
         List<GeoPoint> result = new ArrayList<>();
-        if(!IMPROVE_TIME || isIntersected(box,ray)) {
+        if(!IMPROVE_TIME || isIntersected(buildBox(),ray)) {
             for (Intersectable geometry : _geometries) {
-                if (!IMPROVE_TIME || isIntersected(geometry.get_box(), ray)) {
+                if (!IMPROVE_TIME || isIntersected(geometry.buildBox(), ray)) {
                     List<GeoPoint> temp_result = geometry.findIntersections(ray);
                     if (temp_result != null)
                         result.addAll(temp_result);
@@ -91,14 +90,6 @@ public class Geometries implements Intersectable {
         min = new Point3D(minX, minY, minZ);
         max = new Point3D(maxX, maxY, maxZ);
         _box = new Box(min, max);
-        return _box;
-    }
-
-    /**
-     * getter of the box
-     * @return the box
-     */
-    public Box get_box() {
         return _box;
     }
 
@@ -183,5 +174,8 @@ public class Geometries implements Intersectable {
     }
 
 
+    public void set_IMPROVE_TIME(boolean IMPROVE_TIME) {
+        this.IMPROVE_TIME = IMPROVE_TIME;
+    }
 }
 

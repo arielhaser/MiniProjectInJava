@@ -75,8 +75,4 @@ public class Tube extends RadialGeometry {
         return null;
     }
 
-    @Override
-    public Box get_box() {
-        return null;
-    }
 }

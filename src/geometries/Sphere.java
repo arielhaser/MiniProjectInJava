@@ -22,7 +22,7 @@ public class Sphere extends RadialGeometry {
     public Sphere(double _radius, Point3D _center) {
         super(_radius);
         this._center = _center;
-        this._box = buildBox();
+        this._box = null;
     }
 
     /**
@@ -34,7 +34,7 @@ public class Sphere extends RadialGeometry {
     public Sphere(Color _emission, double _radius, Point3D _center) {
         this(_radius, _center);
         this._emission = _emission;
-        this._box = buildBox();
+        this._box = null;
     }
 
     /**
@@ -47,7 +47,7 @@ public class Sphere extends RadialGeometry {
     public Sphere(Color _emission, Material _material, double _radius, Point3D _center) {
         this(_emission, _radius, _center);
         this._material = _material;
-        this._box = buildBox();
+        this._box = null;
     }
 
     public Point3D get_center() {
@@ -137,11 +137,6 @@ public class Sphere extends RadialGeometry {
         min = new Point3D(minX, minY, minZ);
         max = new Point3D(maxX, maxY, maxZ);
         _box = new Box(min, max);
-        return _box;
-    }
-
-    @Override
-    public Box get_box() {
         return _box;
     }
 

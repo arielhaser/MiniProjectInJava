@@ -84,7 +84,7 @@ public class Polygon extends Geometry {
             if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
                 throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
         }
-        this._box = buildBox();
+        this._box = null;
     }
 
     /**
@@ -95,13 +95,13 @@ public class Polygon extends Geometry {
     public Polygon(Color _emission, Point3D... vertices) {
         this(vertices);
         this._emission = _emission;
-        this._box = buildBox();
+        this._box = null;
     }
 
     public Polygon(Color _emission, Material _material, Point3D... _vertices) {
         this(_emission, _vertices);
         this._material =  _material;
-        this._box = buildBox();
+        this._box = null;
     }
 
     @Override
@@ -135,8 +135,4 @@ public class Polygon extends Geometry {
         return _box;
     }
 
-    @Override
-    public Box get_box() {
-        return _box;
-    }
 }

@@ -51,7 +51,11 @@ public class Mini2Test {
 
 
         ImageWriter imageWriter = new ImageWriter("essai2", 500, 500, 1200, 1200);
-        Render render = new Render(imageWriter, scene).setMultithreading(1).setDebugPrint();
+        Render render = new Render(imageWriter, scene).setMultithreading(3).setDebugPrint();
+
+        scene.getGeometries().set_IMPROVE_TIME(true);
+        scene.getCamera().set_IMPROVE_PIXEL(true);
+        render.set_SOFT_SHADOW(true);
 
         render.renderImage();
         render.writeToImage();

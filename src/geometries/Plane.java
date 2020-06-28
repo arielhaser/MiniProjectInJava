@@ -26,7 +26,7 @@ public class Plane extends Geometry {
     public Plane(Point3D _p, Vector _normal) {
         this._p = _p;
         this._normal = _normal;
-        this._box = buildBox();
+        this._box = null;
     }
 
     /**
@@ -41,7 +41,7 @@ public class Plane extends Geometry {
         Vector v2 = z.subtract(x);
         Vector temp_vector = v1.crossProduct(v2);
         _normal = temp_vector.normalized();
-        this._box = buildBox();
+        this._box = null;
     }
     public Plane (Color _emission, Material _material,Point3D x, Point3D y, Point3D z)
     {
@@ -52,6 +52,7 @@ public class Plane extends Geometry {
         Vector v2 = z.subtract(x);
         Vector temp_vector = v1.crossProduct(v2);
         _normal = temp_vector.normalized();
+        this._box = null;
     }
     /**
      * constructor of Plane
@@ -62,13 +63,13 @@ public class Plane extends Geometry {
     public Plane(Color _emission, Point3D _p, Vector _normal) {
         this(_p, _normal);
         this._emission = _emission;
-        this._box = buildBox();
+        this._box = null;
     }
 
     public Plane(Color _emission, Material _material, Point3D _p, Vector _normal) {
         this(_emission, _p, _normal);
         this._material = _material;
-        this._box = buildBox();
+        this._box = null;
     }
 
     public Point3D get_p() {
@@ -141,8 +142,4 @@ public class Plane extends Geometry {
         return _box;
     }
 
-    @Override
-    public Box get_box() {
-        return _box;
-    }
 }

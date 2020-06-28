@@ -12,7 +12,6 @@ public interface Intersectable {
 
     List<GeoPoint> findIntersections(Ray ray); // a list of GeoPoint
     Box buildBox();
-    Box get_box();
 
     /**
      * class static representing GeoPoint: Point of geometry
